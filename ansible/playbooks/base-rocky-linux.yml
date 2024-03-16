@@ -1,0 +1,6 @@
+---
+- name: Configure base Rocky Linux settings
+  hosts: all
+  become: yes
+  roles:
+    - base_linux

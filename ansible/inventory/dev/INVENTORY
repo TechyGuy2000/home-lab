@@ -1,0 +1,4 @@
+[sip_servers]
+sipAdmin ansible_host=192.168.50.5
+sipEngine1 ansible_host=192.168.50.6
+sipEngine2 ansible_host=192.168.50.7

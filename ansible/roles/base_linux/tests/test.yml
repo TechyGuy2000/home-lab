@@ -1,0 +1,11 @@
+---
+- name: Test Base Linux Role
+  hosts: all
+  become: yes
+  vars:
+    some_role_variable: value
+
+  tasks:
+    - name: Include Base Linux Role
+      include_role:
+        name: base_linux

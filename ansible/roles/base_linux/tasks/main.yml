@@ -1,0 +1,34 @@
+---
+# tasks file for roles/base_linux
+- name: Uninstall setroubleshoot packages
+  ansible.builtin.dnf:
+    name:
+      - setroubleshoot-plugins
+      - setroubleshoot-server
+    state: absent
+
+- name: Check if setroubleshootd service exists
+  ansible.builtin.command: systemctl list-unit-files setroubleshootd.service
+  register: service_check
+  ignore_errors: true
+  changed_when: false
+  failed_when: false
+
+- name: Disable setroubleshoot systemd service
+  ansible.builtin.systemd:
+    name: setroubleshootd
+    enabled: no
+    state: stopped
+  ignore_errors: yes
+  when: service_check.rc == 0
+
+- name: Remove setroubleshoot systemd service file
+  ansible.builtin.file:
+    path: /etc/systemd/system/setroubleshootd.service
+    state: absent
+  ignore_errors: yes
+  when: service_check.rc == 0
+
+- name: Reload systemd to apply changes
+  ansible.builtin.systemd:
+    daemon_reload: yes

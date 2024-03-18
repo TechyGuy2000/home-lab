@@ -1,0 +1,1323 @@
+ansible-playbook [core 2.16.4]
+  config file = /Users/gregbolton/Documents/GitHub/home-lab/ansible/ansible.cfg
+  configured module search path = ['/Users/gregbolton/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /Users/gregbolton/Library/Python/3.11/lib/python/site-packages/ansible
+  ansible collection location = /Users/gregbolton/.ansible/collections:/usr/share/ansible/collections
+  executable location = /Users/gregbolton/Library/Python/3.11/bin/ansible-playbook
+  python version = 3.11.5 (v3.11.5:cce6ba91b3, Aug 24 2023, 10:50:31) [Clang 13.0.0 (clang-1300.0.29.30)] (/Library/Frameworks/Python.framework/Versions/3.11/bin/python3)
+  jinja version = 3.1.3
+  libyaml = True
+Using /Users/gregbolton/Documents/GitHub/home-lab/ansible/ansible.cfg as config file
+redirecting (type: callback) ansible.builtin.yaml to community.general.yaml
+redirecting (type: callback) ansible.builtin.yaml to community.general.yaml
+Skipping callback 'default', as we already have a stdout callback.
+Skipping callback 'minimal', as we already have a stdout callback.
+Skipping callback 'oneline', as we already have a stdout callback.
+
+PLAYBOOK: hashi-lab-docker.yml *************************************************
+1 plays in playbooks/hashi-lab-docker.yml
+
+PLAY [Ensure Docker CE] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/playbooks/hashi-lab-docker.yml:2
+ok: [docker3]
+ok: [docker2]
+ok: [docker1]
+
+TASK [geerlingguy.pip : Ensure Pip is installed.] ******************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.pip/tasks/main.yml:2
+ok: [docker3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+
+TASK [geerlingguy.pip : Ensure pip_install_packages are installed.] ************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.pip/tasks/main.yml:7
+ok: [docker2] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker3] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker1] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+
+TASK [geerlingguy.docker : Load OS-specific vars.] *****************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:2
+ok: [docker1] => changed=false 
+  ansible_facts: {}
+  ansible_included_var_files:
+  - /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/vars/main.yml
+ok: [docker2] => changed=false 
+  ansible_facts: {}
+  ansible_included_var_files:
+  - /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/vars/main.yml
+ok: [docker3] => changed=false 
+  ansible_facts: {}
+  ansible_included_var_files:
+  - /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/vars/main.yml
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:13
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+included: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/setup-RedHat.yml for docker1, docker2, docker3
+
+TASK [geerlingguy.docker : Ensure old versions of Docker are not installed.] ***
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/setup-RedHat.yml:2
+ok: [docker1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+
+TASK [geerlingguy.docker : Add Docker GPG key.] ********************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/setup-RedHat.yml:10
+ok: [docker3] => changed=false
+ok: [docker1] => changed=false
+ok: [docker2] => changed=false
+
+TASK [geerlingguy.docker : Add Docker repository.] *****************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/setup-RedHat.yml:15
+ok: [docker1] => changed=false 
+  dest: /etc/yum.repos.d/docker-ce.repo
+  elapsed: 0
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: 'HTTP Error 304: Not Modified'
+  owner: root
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  status_code: 304
+  uid: 0
+  url: https://download.docker.com/linux/centos/docker-ce.repo
+ok: [docker3] => changed=false 
+  dest: /etc/yum.repos.d/docker-ce.repo
+  elapsed: 0
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: 'HTTP Error 304: Not Modified'
+  owner: root
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  status_code: 304
+  uid: 0
+  url: https://download.docker.com/linux/centos/docker-ce.repo
+ok: [docker2] => changed=false 
+  dest: /etc/yum.repos.d/docker-ce.repo
+  elapsed: 0
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: 'HTTP Error 304: Not Modified'
+  owner: root
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  status_code: 304
+  uid: 0
+  url: https://download.docker.com/linux/centos/docker-ce.repo
+
+TASK [geerlingguy.docker : Configure Docker Nightly repo.] *********************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/setup-RedHat.yml:23
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+ok: [docker1] => changed=false 
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: OK
+  owner: root
+  path: /etc/yum.repos.d/docker-ce.repo
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  uid: 0
+ok: [docker3] => changed=false 
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: OK
+  owner: root
+  path: /etc/yum.repos.d/docker-ce.repo
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  uid: 0
+ok: [docker2] => changed=false 
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: OK
+  owner: root
+  path: /etc/yum.repos.d/docker-ce.repo
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  uid: 0
+
+TASK [geerlingguy.docker : Configure Docker Test repo.] ************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/setup-RedHat.yml:32
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+ok: [docker3] => changed=false 
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: OK
+  owner: root
+  path: /etc/yum.repos.d/docker-ce.repo
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  uid: 0
+ok: [docker1] => changed=false 
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: OK
+  owner: root
+  path: /etc/yum.repos.d/docker-ce.repo
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  uid: 0
+ok: [docker2] => changed=false 
+  gid: 0
+  group: root
+  mode: '0644'
+  msg: OK
+  owner: root
+  path: /etc/yum.repos.d/docker-ce.repo
+  secontext: system_u:object_r:system_conf_t:s0
+  size: 1919
+  state: file
+  uid: 0
+
+TASK [geerlingguy.docker : Ensure container-selinux is installed.] *************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/setup-RedHat.yml:43
+skipping: [docker1] => changed=false 
+  false_condition: ansible_distribution_major_version | int == 8
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: ansible_distribution_major_version | int == 8
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: ansible_distribution_major_version | int == 8
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Ensure containerd.io is installed.] *****************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/setup-RedHat.yml:48
+skipping: [docker1] => changed=false 
+  false_condition: ansible_distribution_major_version | int == 8
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: ansible_distribution_major_version | int == 8
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: ansible_distribution_major_version | int == 8
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:16
+skipping: [docker1] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Install Docker packages.] ***************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:19
+skipping: [docker1] => changed=false 
+  false_condition: ansible_version.full is version_compare('2.12', '<') or ansible_os_family not in ['RedHat', 'Debian', 'Rocky', 'EL']
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: ansible_version.full is version_compare('2.12', '<') or ansible_os_family not in ['RedHat', 'Debian', 'Rocky', 'EL']
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: ansible_version.full is version_compare('2.12', '<') or ansible_os_family not in ['RedHat', 'Debian', 'Rocky', 'EL']
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Install Docker packages (with downgrade option).] ***
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:27
+ok: [docker1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+
+TASK [geerlingguy.docker : Install docker-compose plugin.] *********************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:36
+skipping: [docker1] => changed=false 
+  false_condition: docker_install_compose_plugin | bool == true and (ansible_version.full is version_compare('2.12', '<') or ansible_os_family not in ['RedHat', 'Debian', 'Rocky', 'EL' ])
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: docker_install_compose_plugin | bool == true and (ansible_version.full is version_compare('2.12', '<') or ansible_os_family not in ['RedHat', 'Debian', 'Rocky', 'EL' ])
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: docker_install_compose_plugin | bool == true and (ansible_version.full is version_compare('2.12', '<') or ansible_os_family not in ['RedHat', 'Debian', 'Rocky', 'EL' ])
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Install docker-compose-plugin (with downgrade option).] ***
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:44
+skipping: [docker1] => changed=false 
+  false_condition: docker_install_compose_plugin | bool == true and ansible_version.full is version_compare('2.12', '>=') and ansible_os_family in ['RedHat', 'Debian', 'Rocky', 'EL']
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: docker_install_compose_plugin | bool == true and ansible_version.full is version_compare('2.12', '>=') and ansible_os_family in ['RedHat', 'Debian', 'Rocky', 'EL']
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: docker_install_compose_plugin | bool == true and ansible_version.full is version_compare('2.12', '>=') and ansible_os_family in ['RedHat', 'Debian', 'Rocky', 'EL']
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Ensure /etc/docker/ directory exists.] **************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:53
+skipping: [docker1] => changed=false 
+  false_condition: docker_daemon_options.keys() | length > 0
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: docker_daemon_options.keys() | length > 0
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: docker_daemon_options.keys() | length > 0
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Configure Docker daemon options.] *******************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:60
+skipping: [docker1] => changed=false 
+  false_condition: docker_daemon_options.keys() | length > 0
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: docker_daemon_options.keys() | length > 0
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: docker_daemon_options.keys() | length > 0
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Ensure Docker is started and enabled at boot.] ******
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:68
+ok: [docker3] => changed=false 
+  enabled: true
+  name: docker
+  state: started
+  status:
+    AccessSELinuxContext: system_u:object_r:container_unit_file_t:s0
+    ActiveEnterTimestamp: Sun 2024-03-17 22:27:20 UTC
+    ActiveEnterTimestampMonotonic: '26113347519'
+    ActiveExitTimestamp: Sun 2024-03-17 22:27:19 UTC
+    ActiveExitTimestampMonotonic: '26113017531'
+    ActiveState: active
+    After: containerd.service firewalld.service network-online.target docker.socket time-set.target sysinit.target system.slice systemd-journald.socket basic.target
+    AllowIsolate: 'no'
+    AssertResult: 'yes'
+    AssertTimestamp: Sun 2024-03-17 22:27:19 UTC
+    AssertTimestampMonotonic: '26113023130'
+    Before: shutdown.target multi-user.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    CPUAccounting: 'yes'
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '327844000'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore
+    CleanResult: success
+    CollectMode: inactive
+    ConditionResult: 'yes'
+    ConditionTimestamp: Sun 2024-03-17 22:27:19 UTC
+    ConditionTimestampMonotonic: '26113023127'
+    ConfigurationDirectoryMode: '0755'
+    Conflicts: shutdown.target
+    ControlGroup: /system.slice/docker.service
+    ControlGroupId: '9682'
+    ControlPID: '0'
+    CoredumpFilter: '0x33'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'yes'
+    DelegateControllers: cpu cpuacct cpuset io blkio memory devices pids bpf-firewall bpf-devices bpf-foreign bpf-socket-bind bpf-restrict-network-interfaces
+    Description: Docker Application Container Engine
+    DevicePolicy: auto
+    Documentation: https://docs.docker.com
+    DynamicUser: 'no'
+    EffectiveCPUs: 0-1
+    EffectiveMemoryNodes: '0'
+    ExecMainCode: '0'
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '58327'
+    ExecMainStartTimestamp: Sun 2024-03-17 22:27:20 UTC
+    ExecMainStartTimestampMonotonic: '26113024804'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecReloadEx: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; ignore_errors=no ; start_time=[Sun 2024-03-17 22:27:19 UTC] ; stop_time=[n/a] ; pid=58327 ; code=(null) ; status=0/0 }'
+    ExecStartEx: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; flags= ; start_time=[Sun 2024-03-17 22:27:19 UTC] ; stop_time=[n/a] ; pid=58327 ; code=(null) ; status=0/0 }'
+    ExitType: main
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FinalKillSignal: '9'
+    FragmentPath: /usr/lib/systemd/system/docker.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOReadBytes: '18446744073709551615'
+    IOReadOperations: '18446744073709551615'
+    IOSchedulingClass: '2'
+    IOSchedulingPriority: '4'
+    IOWeight: '[not set]'
+    IOWriteBytes: '18446744073709551615'
+    IOWriteOperations: '18446744073709551615'
+    IPAccounting: 'no'
+    IPEgressBytes: '[no data]'
+    IPEgressPackets: '[no data]'
+    IPIngressBytes: '[no data]'
+    IPIngressPackets: '[no data]'
+    Id: docker.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestamp: Sun 2024-03-17 22:27:19 UTC
+    InactiveEnterTimestampMonotonic: '26113022492'
+    InactiveExitTimestamp: Sun 2024-03-17 22:27:20 UTC
+    InactiveExitTimestampMonotonic: '26113025309'
+    InvocationID: 4bf39f8c2422474a998cff031ed75f82
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: process
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '8388608'
+    LimitMEMLOCKSoft: '8388608'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: '524288'
+    LimitNOFILESoft: '1024'
+    LimitNPROC: infinity
+    LimitNPROCSoft: infinity
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '14275'
+    LimitSIGPENDINGSoft: '14275'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '58327'
+    ManagedOOMMemoryPressure: auto
+    ManagedOOMMemoryPressureLimit: '0'
+    ManagedOOMPreference: none
+    ManagedOOMSwap: auto
+    MemoryAccounting: 'yes'
+    MemoryAvailable: infinity
+    MemoryCurrent: '35770368'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAPolicy: n/a
+    Names: docker.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: main
+    OOMPolicy: continue
+    OOMScoreAdjust: '-500'
+    OnFailureJobMode: replace
+    OnSuccessJobMode: fail
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateIPC: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProcSubset: all
+    ProtectClock: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'no'
+    ProtectHostname: 'no'
+    ProtectKernelLogs: 'no'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectProc: default
+    ProtectSystem: 'no'
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    ReloadResult: success
+    RemainAfterExit: 'no'
+    RemoveIPC: 'no'
+    Requires: sysinit.target system.slice docker.socket
+    Restart: always
+    RestartKillSignal: '15'
+    RestartUSec: 2s
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    RuntimeRandomizedExtraUSec: '0'
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: inherit
+    StandardInput: 'null'
+    StandardOutput: journal
+    StartLimitAction: none
+    StartLimitBurst: '3'
+    StartLimitIntervalUSec: 1min
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestamp: Sun 2024-03-17 22:27:20 UTC
+    StateChangeTimestampMonotonic: '26113347519'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: running
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '2147483646'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '9'
+    TasksMax: infinity
+    TimeoutAbortUSec: 1min 30s
+    TimeoutCleanUSec: infinity
+    TimeoutStartFailureMode: terminate
+    TimeoutStartUSec: infinity
+    TimeoutStopFailureMode: terminate
+    TimeoutStopUSec: 1min 30s
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    TriggeredBy: docker.socket
+    Type: notify
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: disabled
+    UnitFileState: enabled
+    UtmpMode: init
+    WantedBy: multi-user.target
+    Wants: network-online.target containerd.service
+    WatchdogSignal: '6'
+    WatchdogTimestampMonotonic: '0'
+    WatchdogUSec: '0'
+ok: [docker2] => changed=false 
+  enabled: true
+  name: docker
+  state: started
+  status:
+    AccessSELinuxContext: system_u:object_r:container_unit_file_t:s0
+    ActiveEnterTimestamp: Sun 2024-03-17 22:27:20 UTC
+    ActiveEnterTimestampMonotonic: '26294294871'
+    ActiveExitTimestamp: Sun 2024-03-17 22:27:19 UTC
+    ActiveExitTimestampMonotonic: '26293954118'
+    ActiveState: active
+    After: basic.target docker.socket containerd.service network-online.target time-set.target systemd-journald.socket firewalld.service sysinit.target system.slice
+    AllowIsolate: 'no'
+    AssertResult: 'yes'
+    AssertTimestamp: Sun 2024-03-17 22:27:19 UTC
+    AssertTimestampMonotonic: '26293959799'
+    Before: shutdown.target multi-user.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    CPUAccounting: 'yes'
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '332476000'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore
+    CleanResult: success
+    CollectMode: inactive
+    ConditionResult: 'yes'
+    ConditionTimestamp: Sun 2024-03-17 22:27:19 UTC
+    ConditionTimestampMonotonic: '26293959797'
+    ConfigurationDirectoryMode: '0755'
+    Conflicts: shutdown.target
+    ControlGroup: /system.slice/docker.service
+    ControlGroupId: '9584'
+    ControlPID: '0'
+    CoredumpFilter: '0x33'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'yes'
+    DelegateControllers: cpu cpuacct cpuset io blkio memory devices pids bpf-firewall bpf-devices bpf-foreign bpf-socket-bind bpf-restrict-network-interfaces
+    Description: Docker Application Container Engine
+    DevicePolicy: auto
+    Documentation: https://docs.docker.com
+    DynamicUser: 'no'
+    EffectiveCPUs: 0-1
+    EffectiveMemoryNodes: '0'
+    ExecMainCode: '0'
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '58259'
+    ExecMainStartTimestamp: Sun 2024-03-17 22:27:19 UTC
+    ExecMainStartTimestampMonotonic: '26293961436'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecReloadEx: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; ignore_errors=no ; start_time=[Sun 2024-03-17 22:27:19 UTC] ; stop_time=[n/a] ; pid=58259 ; code=(null) ; status=0/0 }'
+    ExecStartEx: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; flags= ; start_time=[Sun 2024-03-17 22:27:19 UTC] ; stop_time=[n/a] ; pid=58259 ; code=(null) ; status=0/0 }'
+    ExitType: main
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FinalKillSignal: '9'
+    FragmentPath: /usr/lib/systemd/system/docker.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOReadBytes: '18446744073709551615'
+    IOReadOperations: '18446744073709551615'
+    IOSchedulingClass: '2'
+    IOSchedulingPriority: '4'
+    IOWeight: '[not set]'
+    IOWriteBytes: '18446744073709551615'
+    IOWriteOperations: '18446744073709551615'
+    IPAccounting: 'no'
+    IPEgressBytes: '[no data]'
+    IPEgressPackets: '[no data]'
+    IPIngressBytes: '[no data]'
+    IPIngressPackets: '[no data]'
+    Id: docker.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestamp: Sun 2024-03-17 22:27:19 UTC
+    InactiveEnterTimestampMonotonic: '26293959186'
+    InactiveExitTimestamp: Sun 2024-03-17 22:27:19 UTC
+    InactiveExitTimestampMonotonic: '26293961882'
+    InvocationID: 256afba51ccc485193ea559b0fca21b3
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: process
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '8388608'
+    LimitMEMLOCKSoft: '8388608'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: '524288'
+    LimitNOFILESoft: '1024'
+    LimitNPROC: infinity
+    LimitNPROCSoft: infinity
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '14275'
+    LimitSIGPENDINGSoft: '14275'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '58259'
+    ManagedOOMMemoryPressure: auto
+    ManagedOOMMemoryPressureLimit: '0'
+    ManagedOOMPreference: none
+    ManagedOOMSwap: auto
+    MemoryAccounting: 'yes'
+    MemoryAvailable: infinity
+    MemoryCurrent: '35942400'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAPolicy: n/a
+    Names: docker.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: main
+    OOMPolicy: continue
+    OOMScoreAdjust: '-500'
+    OnFailureJobMode: replace
+    OnSuccessJobMode: fail
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateIPC: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProcSubset: all
+    ProtectClock: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'no'
+    ProtectHostname: 'no'
+    ProtectKernelLogs: 'no'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectProc: default
+    ProtectSystem: 'no'
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    ReloadResult: success
+    RemainAfterExit: 'no'
+    RemoveIPC: 'no'
+    Requires: system.slice docker.socket sysinit.target
+    Restart: always
+    RestartKillSignal: '15'
+    RestartUSec: 2s
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    RuntimeRandomizedExtraUSec: '0'
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: inherit
+    StandardInput: 'null'
+    StandardOutput: journal
+    StartLimitAction: none
+    StartLimitBurst: '3'
+    StartLimitIntervalUSec: 1min
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestamp: Sun 2024-03-17 22:27:20 UTC
+    StateChangeTimestampMonotonic: '26294294871'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: running
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '2147483646'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '8'
+    TasksMax: infinity
+    TimeoutAbortUSec: 1min 30s
+    TimeoutCleanUSec: infinity
+    TimeoutStartFailureMode: terminate
+    TimeoutStartUSec: infinity
+    TimeoutStopFailureMode: terminate
+    TimeoutStopUSec: 1min 30s
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    TriggeredBy: docker.socket
+    Type: notify
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: disabled
+    UnitFileState: enabled
+    UtmpMode: init
+    WantedBy: multi-user.target
+    Wants: network-online.target containerd.service
+    WatchdogSignal: '6'
+    WatchdogTimestampMonotonic: '0'
+    WatchdogUSec: '0'
+ok: [docker1] => changed=false 
+  enabled: true
+  name: docker
+  state: started
+  status:
+    AccessSELinuxContext: system_u:object_r:container_unit_file_t:s0
+    ActiveEnterTimestamp: Sun 2024-03-17 22:27:20 UTC
+    ActiveEnterTimestampMonotonic: '26083343166'
+    ActiveExitTimestamp: Sun 2024-03-17 22:27:19 UTC
+    ActiveExitTimestampMonotonic: '26083014371'
+    ActiveState: active
+    After: firewalld.service docker.socket network-online.target time-set.target containerd.service sysinit.target basic.target system.slice systemd-journald.socket
+    AllowIsolate: 'no'
+    AssertResult: 'yes'
+    AssertTimestamp: Sun 2024-03-17 22:27:19 UTC
+    AssertTimestampMonotonic: '26083020166'
+    Before: shutdown.target multi-user.target
+    BlockIOAccounting: 'no'
+    BlockIOWeight: '[not set]'
+    CPUAccounting: 'yes'
+    CPUAffinityFromNUMA: 'no'
+    CPUQuotaPerSecUSec: infinity
+    CPUQuotaPeriodUSec: infinity
+    CPUSchedulingPolicy: '0'
+    CPUSchedulingPriority: '0'
+    CPUSchedulingResetOnFork: 'no'
+    CPUShares: '[not set]'
+    CPUUsageNSec: '316533000'
+    CPUWeight: '[not set]'
+    CacheDirectoryMode: '0755'
+    CanFreeze: 'yes'
+    CanIsolate: 'no'
+    CanReload: 'yes'
+    CanStart: 'yes'
+    CanStop: 'yes'
+    CapabilityBoundingSet: cap_chown cap_dac_override cap_dac_read_search cap_fowner cap_fsetid cap_kill cap_setgid cap_setuid cap_setpcap cap_linux_immutable cap_net_bind_service cap_net_broadcast cap_net_admin cap_net_raw cap_ipc_lock cap_ipc_owner cap_sys_module cap_sys_rawio cap_sys_chroot cap_sys_ptrace cap_sys_pacct cap_sys_admin cap_sys_boot cap_sys_nice cap_sys_resource cap_sys_time cap_sys_tty_config cap_mknod cap_lease cap_audit_write cap_audit_control cap_setfcap cap_mac_override cap_mac_admin cap_syslog cap_wake_alarm cap_block_suspend cap_audit_read cap_perfmon cap_bpf cap_checkpoint_restore
+    CleanResult: success
+    CollectMode: inactive
+    ConditionResult: 'yes'
+    ConditionTimestamp: Sun 2024-03-17 22:27:19 UTC
+    ConditionTimestampMonotonic: '26083020164'
+    ConfigurationDirectoryMode: '0755'
+    Conflicts: shutdown.target
+    ControlGroup: /system.slice/docker.service
+    ControlGroupId: '9584'
+    ControlPID: '0'
+    CoredumpFilter: '0x33'
+    DefaultDependencies: 'yes'
+    DefaultMemoryLow: '0'
+    DefaultMemoryMin: '0'
+    Delegate: 'yes'
+    DelegateControllers: cpu cpuacct cpuset io blkio memory devices pids bpf-firewall bpf-devices bpf-foreign bpf-socket-bind bpf-restrict-network-interfaces
+    Description: Docker Application Container Engine
+    DevicePolicy: auto
+    Documentation: https://docs.docker.com
+    DynamicUser: 'no'
+    EffectiveCPUs: 0-1
+    EffectiveMemoryNodes: '0'
+    ExecMainCode: '0'
+    ExecMainExitTimestampMonotonic: '0'
+    ExecMainPID: '58441'
+    ExecMainStartTimestamp: Sun 2024-03-17 22:27:19 UTC
+    ExecMainStartTimestampMonotonic: '26083021678'
+    ExecMainStatus: '0'
+    ExecReload: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; ignore_errors=no ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecReloadEx: '{ path=/bin/kill ; argv[]=/bin/kill -s HUP $MAINPID ; flags= ; start_time=[n/a] ; stop_time=[n/a] ; pid=0 ; code=(null) ; status=0/0 }'
+    ExecStart: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; ignore_errors=no ; start_time=[Sun 2024-03-17 22:27:19 UTC] ; stop_time=[n/a] ; pid=58441 ; code=(null) ; status=0/0 }'
+    ExecStartEx: '{ path=/usr/bin/dockerd ; argv[]=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock ; flags= ; start_time=[Sun 2024-03-17 22:27:19 UTC] ; stop_time=[n/a] ; pid=58441 ; code=(null) ; status=0/0 }'
+    ExitType: main
+    FailureAction: none
+    FileDescriptorStoreMax: '0'
+    FinalKillSignal: '9'
+    FragmentPath: /usr/lib/systemd/system/docker.service
+    FreezerState: running
+    GID: '[not set]'
+    GuessMainPID: 'yes'
+    IOAccounting: 'no'
+    IOReadBytes: '18446744073709551615'
+    IOReadOperations: '18446744073709551615'
+    IOSchedulingClass: '2'
+    IOSchedulingPriority: '4'
+    IOWeight: '[not set]'
+    IOWriteBytes: '18446744073709551615'
+    IOWriteOperations: '18446744073709551615'
+    IPAccounting: 'no'
+    IPEgressBytes: '[no data]'
+    IPEgressPackets: '[no data]'
+    IPIngressBytes: '[no data]'
+    IPIngressPackets: '[no data]'
+    Id: docker.service
+    IgnoreOnIsolate: 'no'
+    IgnoreSIGPIPE: 'yes'
+    InactiveEnterTimestamp: Sun 2024-03-17 22:27:19 UTC
+    InactiveEnterTimestampMonotonic: '26083019612'
+    InactiveExitTimestamp: Sun 2024-03-17 22:27:19 UTC
+    InactiveExitTimestampMonotonic: '26083022050'
+    InvocationID: 3355b1e2aa7445afaba0ebd8b9de5af0
+    JobRunningTimeoutUSec: infinity
+    JobTimeoutAction: none
+    JobTimeoutUSec: infinity
+    KeyringMode: private
+    KillMode: process
+    KillSignal: '15'
+    LimitAS: infinity
+    LimitASSoft: infinity
+    LimitCORE: infinity
+    LimitCORESoft: infinity
+    LimitCPU: infinity
+    LimitCPUSoft: infinity
+    LimitDATA: infinity
+    LimitDATASoft: infinity
+    LimitFSIZE: infinity
+    LimitFSIZESoft: infinity
+    LimitLOCKS: infinity
+    LimitLOCKSSoft: infinity
+    LimitMEMLOCK: '8388608'
+    LimitMEMLOCKSoft: '8388608'
+    LimitMSGQUEUE: '819200'
+    LimitMSGQUEUESoft: '819200'
+    LimitNICE: '0'
+    LimitNICESoft: '0'
+    LimitNOFILE: '524288'
+    LimitNOFILESoft: '1024'
+    LimitNPROC: infinity
+    LimitNPROCSoft: infinity
+    LimitRSS: infinity
+    LimitRSSSoft: infinity
+    LimitRTPRIO: '0'
+    LimitRTPRIOSoft: '0'
+    LimitRTTIME: infinity
+    LimitRTTIMESoft: infinity
+    LimitSIGPENDING: '14275'
+    LimitSIGPENDINGSoft: '14275'
+    LimitSTACK: infinity
+    LimitSTACKSoft: '8388608'
+    LoadState: loaded
+    LockPersonality: 'no'
+    LogLevelMax: '-1'
+    LogRateLimitBurst: '0'
+    LogRateLimitIntervalUSec: '0'
+    LogsDirectoryMode: '0755'
+    MainPID: '58441'
+    ManagedOOMMemoryPressure: auto
+    ManagedOOMMemoryPressureLimit: '0'
+    ManagedOOMPreference: none
+    ManagedOOMSwap: auto
+    MemoryAccounting: 'yes'
+    MemoryAvailable: infinity
+    MemoryCurrent: '38723584'
+    MemoryDenyWriteExecute: 'no'
+    MemoryHigh: infinity
+    MemoryLimit: infinity
+    MemoryLow: '0'
+    MemoryMax: infinity
+    MemoryMin: '0'
+    MemorySwapMax: infinity
+    MountAPIVFS: 'no'
+    NFileDescriptorStore: '0'
+    NRestarts: '0'
+    NUMAPolicy: n/a
+    Names: docker.service
+    NeedDaemonReload: 'no'
+    Nice: '0'
+    NoNewPrivileges: 'no'
+    NonBlocking: 'no'
+    NotifyAccess: main
+    OOMPolicy: continue
+    OOMScoreAdjust: '-500'
+    OnFailureJobMode: replace
+    OnSuccessJobMode: fail
+    Perpetual: 'no'
+    PrivateDevices: 'no'
+    PrivateIPC: 'no'
+    PrivateMounts: 'no'
+    PrivateNetwork: 'no'
+    PrivateTmp: 'no'
+    PrivateUsers: 'no'
+    ProcSubset: all
+    ProtectClock: 'no'
+    ProtectControlGroups: 'no'
+    ProtectHome: 'no'
+    ProtectHostname: 'no'
+    ProtectKernelLogs: 'no'
+    ProtectKernelModules: 'no'
+    ProtectKernelTunables: 'no'
+    ProtectProc: default
+    ProtectSystem: 'no'
+    RefuseManualStart: 'no'
+    RefuseManualStop: 'no'
+    ReloadResult: success
+    RemainAfterExit: 'no'
+    RemoveIPC: 'no'
+    Requires: sysinit.target docker.socket system.slice
+    Restart: always
+    RestartKillSignal: '15'
+    RestartUSec: 2s
+    RestrictNamespaces: 'no'
+    RestrictRealtime: 'no'
+    RestrictSUIDSGID: 'no'
+    Result: success
+    RootDirectoryStartOnly: 'no'
+    RuntimeDirectoryMode: '0755'
+    RuntimeDirectoryPreserve: 'no'
+    RuntimeMaxUSec: infinity
+    RuntimeRandomizedExtraUSec: '0'
+    SameProcessGroup: 'no'
+    SecureBits: '0'
+    SendSIGHUP: 'no'
+    SendSIGKILL: 'yes'
+    Slice: system.slice
+    StandardError: inherit
+    StandardInput: 'null'
+    StandardOutput: journal
+    StartLimitAction: none
+    StartLimitBurst: '3'
+    StartLimitIntervalUSec: 1min
+    StartupBlockIOWeight: '[not set]'
+    StartupCPUShares: '[not set]'
+    StartupCPUWeight: '[not set]'
+    StartupIOWeight: '[not set]'
+    StateChangeTimestamp: Sun 2024-03-17 22:27:20 UTC
+    StateChangeTimestampMonotonic: '26083343166'
+    StateDirectoryMode: '0755'
+    StatusErrno: '0'
+    StopWhenUnneeded: 'no'
+    SubState: running
+    SuccessAction: none
+    SyslogFacility: '3'
+    SyslogLevel: '6'
+    SyslogLevelPrefix: 'yes'
+    SyslogPriority: '30'
+    SystemCallErrorNumber: '2147483646'
+    TTYReset: 'no'
+    TTYVHangup: 'no'
+    TTYVTDisallocate: 'no'
+    TasksAccounting: 'yes'
+    TasksCurrent: '8'
+    TasksMax: infinity
+    TimeoutAbortUSec: 1min 30s
+    TimeoutCleanUSec: infinity
+    TimeoutStartFailureMode: terminate
+    TimeoutStartUSec: infinity
+    TimeoutStopFailureMode: terminate
+    TimeoutStopUSec: 1min 30s
+    TimerSlackNSec: '50000'
+    Transient: 'no'
+    TriggeredBy: docker.socket
+    Type: notify
+    UID: '[not set]'
+    UMask: '0022'
+    UnitFilePreset: disabled
+    UnitFileState: enabled
+    UtmpMode: init
+    WantedBy: multi-user.target
+    Wants: containerd.service network-online.target
+    WatchdogSignal: '6'
+    WatchdogTimestampMonotonic: '0'
+    WatchdogUSec: '0'
+
+TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] ***
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:76
+META: triggered running handlers for docker1
+
+TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] ***
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:76
+META: triggered running handlers for docker2
+
+TASK [geerlingguy.docker : Ensure handlers are notified now to avoid firewall conflicts.] ***
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:76
+META: triggered running handlers for docker3
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:79
+included: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/docker-compose.yml for docker1, docker2, docker3
+
+TASK [geerlingguy.docker : Check current docker-compose version.] **************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/docker-compose.yml:2
+ok: [docker3] => changed=false 
+  cmd:
+  - /usr/local/bin/docker-compose
+  - --version
+  delta: '0:00:00.020860'
+  end: '2024-03-17 22:32:59.624229'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2024-03-17 22:32:59.603369'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: Docker Compose version v2.11.1
+  stdout_lines: <omitted>
+ok: [docker1] => changed=false 
+  cmd:
+  - /usr/local/bin/docker-compose
+  - --version
+  delta: '0:00:00.017461'
+  end: '2024-03-17 22:32:59.627719'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2024-03-17 22:32:59.610258'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: Docker Compose version v2.11.1
+  stdout_lines: <omitted>
+ok: [docker2] => changed=false 
+  cmd:
+  - /usr/local/bin/docker-compose
+  - --version
+  delta: '0:00:00.021176'
+  end: '2024-03-17 22:32:59.646940'
+  failed_when_result: false
+  msg: ''
+  rc: 0
+  start: '2024-03-17 22:32:59.625764'
+  stderr: ''
+  stderr_lines: <omitted>
+  stdout: Docker Compose version v2.11.1
+  stdout_lines: <omitted>
+
+TASK [geerlingguy.docker : set_fact] *******************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/docker-compose.yml:9
+ok: [docker1] => changed=false 
+  ansible_facts:
+    docker_compose_current_version: 2.11.1
+ok: [docker2] => changed=false 
+  ansible_facts:
+    docker_compose_current_version: 2.11.1
+ok: [docker3] => changed=false 
+  ansible_facts:
+    docker_compose_current_version: 2.11.1
+
+TASK [geerlingguy.docker : Delete existing docker-compose version if it's different.] ***
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/docker-compose.yml:15
+skipping: [docker1] => changed=false 
+  false_condition: |-
+    docker_compose_current_version is defined and (docker_compose_version | regex_replace('v', '')) not in docker_compose_current_version
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: |-
+    docker_compose_current_version is defined and (docker_compose_version | regex_replace('v', '')) not in docker_compose_current_version
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: |-
+    docker_compose_current_version is defined and (docker_compose_version | regex_replace('v', '')) not in docker_compose_current_version
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Install Docker Compose (if configured).] ************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/docker-compose.yml:23
+skipping: [docker1] => changed=false 
+  false_condition: |-
+    (docker_compose_current_version is not defined) or (docker_compose_current_version | length == 0) or (docker_compose_current_version is version((docker_compose_version | regex_replace('v', '')), '<'))
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: |-
+    (docker_compose_current_version is not defined) or (docker_compose_current_version | length == 0) or (docker_compose_current_version is version((docker_compose_version | regex_replace('v', '')), '<'))
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: |-
+    (docker_compose_current_version is not defined) or (docker_compose_current_version | length == 0) or (docker_compose_current_version is version((docker_compose_version | regex_replace('v', '')), '<'))
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Get docker group info using getent.] ****************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:82
+skipping: [docker1] => changed=false 
+  false_condition: docker_users | length > 0
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: docker_users | length > 0
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: docker_users | length > 0
+  skip_reason: Conditional result was False
+
+TASK [geerlingguy.docker : Check if there are any users to add to the docker group.] ***
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:89
+skipping: [docker1] => changed=false 
+  skipped_reason: No items in the list
+skipping: [docker2] => changed=false 
+  skipped_reason: No items in the list
+skipping: [docker3] => changed=false 
+  skipped_reason: No items in the list
+
+TASK [geerlingguy.docker : include_tasks] **************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.docker/tasks/main.yml:97
+skipping: [docker1] => changed=false 
+  false_condition: at_least_one_user_to_modify is defined
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: at_least_one_user_to_modify is defined
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: at_least_one_user_to_modify is defined
+  skip_reason: Conditional result was False
+
+PLAY RECAP *********************************************************************
+docker1                    : ok=15   changed=0    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
+docker2                    : ok=15   changed=0    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
+docker3                    : ok=15   changed=0    unreachable=0    failed=0    skipped=13   rescued=0    ignored=0   
+

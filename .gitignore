@@ -1,4 +1,6 @@
 terraform/environment/dev/sipLab/.terraform/*
+terraform/environment/dev/hashiLab/.terraform/*
 terraform/environment/dev/.terraform/*
 *.tfstate*
 .terraform.lock.hcl
+.DS_Store

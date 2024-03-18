@@ -1,0 +1,41 @@
+---
+- name: Ensure basic packages.
+  ansible.builtin.package:
+    name: "{{ basic_packages }}"
+    state: present
+
+- name: Ensure HashiCorp binaries.
+  ansible.builtin.include_role:
+    name: chrisvanmeer.hashicorp
+
+- name: Install autocompletion.
+  ansible.builtin.command: "{{ item[0] }} -autocomplete-install"
+  become: "{{ item[1] }}"
+  with_nested:
+    - "{{ hashicorp_product_selection }}"
+    - ["true", "false"]
+  register: autoinstall_cmd
+  changed_when:
+    - not 'already installed' in autoinstall_cmd.stderr
+  failed_when:
+    - autoinstall_cmd.rc != 0
+    - not 'already installed' in autoinstall_cmd.stderr
+
+- name: Ensure local directories.
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  delegate_to: "{{ groups['consul_servers'] | first }}"
+  become: false
+  run_once: true
+  with_items:
+    - "{{ bootstrap_location }}"
+
+- name: Ensure stack script.
+  ansible.builtin.copy:
+    src: stack.sh
+    dest: /usr/local/bin/stack
+    owner: root
+    group: root
+    mode: "0755"

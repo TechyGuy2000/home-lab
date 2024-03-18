@@ -1,0 +1,11 @@
+{{ ansible_managed | comment }}
+
+vault {
+  enabled          = true
+  address          = "https://active.vault.service.{{ consul_domain }}:8200"
+{% if ansible_hostname in groups['nomad_servers'] %}
+  task_token_ttl   = "1h"
+  create_from_role = "nomad-cluster"
+  token            = "{{ nomad_server_vault_token }}"
+{% endif %}
+}

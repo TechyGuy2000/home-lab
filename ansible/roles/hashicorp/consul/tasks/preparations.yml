@@ -1,0 +1,16 @@
+---
+- name: Ensure data directory is present.
+  ansible.builtin.file:
+    path: "{{ consul_data_directory }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ consul_data_directory_owner }}"
+    group: "{{ consul_data_directory_group }}"
+
+- name: Ensure log directory is present.
+  ansible.builtin.file:
+    path: "{{ consul_log_directory }}"
+    state: directory
+    mode: "0755"
+    owner: "{{ consul_log_directory_owner }}"
+    group: "{{ consul_data_directory_group }}"

@@ -1,0 +1,26 @@
+---
+- name: Preparations.
+  ansible.builtin.include_tasks: preparations.yml
+
+- name: Encryption.
+  ansible.builtin.include_tasks: encryption.yml
+
+- name: Configuration.
+  ansible.builtin.include_tasks: configuration.yml
+
+- name: DNS Requests.
+  ansible.builtin.include_tasks: dns-requests.yml
+
+- name: Service Mesh.
+  ansible.builtin.include_tasks: service-mesh.yml
+  when: ansible_hostname in groups['docker_clients']
+
+- name: Backup.
+  ansible.builtin.include_tasks: backup.yml
+  when: ansible_hostname in groups['consul_servers']
+  tags: backup
+
+- name: Unattended Upgrades
+  ansible.builtin.include_tasks: unattended-upgrades.yml
+  when:
+    - ansible_os_family == 'Debian'

@@ -1,0 +1,46 @@
+- name: Ensure package
+  ansible.builtin.package:
+    name: systemd-resolved
+    state: present
+  when: ansible_os_family in ['RedHat', 'Rocky', 'EL']
+
+- name: Ensure configuration directory
+  ansible.builtin.file:
+    path: "/etc/systemd/resolved.conf.d/"
+    state: directory
+    owner: "root"
+    mode: 0755
+
+- name: Ensure Consul config
+  ansible.builtin.template:
+    src: "consul.conf.j2"
+    dest: "/etc/systemd/resolved.conf.d/consul.conf"
+    owner: "root"
+    mode: 0644
+  notify: Restart systemd-resolved
+
+- name: Ensure service start
+  ansible.builtin.service:
+    name: "systemd-resolved"
+    enabled: true
+    state: started
+
+- name: Ensure backup of old resolv file
+  ansible.builtin.file:
+    src: "/etc/resolv.conf"
+    dest: "/etc/resolv.conf.bak"
+    mode: 0644
+    state: hard
+  failed_when: false
+
+- name: Ensure removal of old resolv file
+  ansible.builtin.file:
+    path: "/etc/resolv.conf"
+    state: absent
+
+- name: Ensure link to stub resolver
+  ansible.builtin.file:
+    src: "/run/systemd/resolve/stub-resolv.conf"
+    dest: "/etc/resolv.conf"
+    state: link
+  notify: Restart docker

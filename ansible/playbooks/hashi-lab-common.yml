@@ -1,0 +1,33 @@
+---
+- name: Common preparations
+  hosts: all
+  become: true
+
+  vars:
+    pip_install_packages:
+      - name: cryptography
+      - name: docker
+      - name: hvac
+      - name: jmespath
+      - name: python-nomad
+
+  roles:
+    - name: geerlingguy.pip
+    - name: common
+
+  pre_tasks:
+    - name: Ensure package cache update - Debian.
+      ansible.builtin.apt:
+        update_cache: true
+      when: ansible_os_family in ['Debian', 'Ubuntu']
+
+    - name: Ensure package cache update - RedHat.
+      ansible.builtin.dnf:
+        update_cache: true
+      when: ansible_os_family in ['RedHat', 'Rocky']
+
+    - name: Ensure EPEL repository is enabled
+      ansible.builtin.dnf:
+        name: epel-release
+        state: present
+      when: ansible_os_family in ['RedHat', 'Rocky']

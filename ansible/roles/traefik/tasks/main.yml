@@ -1,0 +1,9 @@
+---
+- name: Binary
+  ansible.builtin.include_tasks: binary.yml
+
+- name: Preparations
+  ansible.builtin.include_tasks: preparations.yml
+
+- name: Configuration
+  ansible.builtin.include_tasks: configuration.yml

@@ -1,0 +1,202 @@
+- name: Create fact of admin password.
+  ansible.builtin.set_fact:
+    admin_password: "{{ lookup('file', vault_admin_local_path) }}"
+  delegate_to: localhost
+  run_once: true
+  tags: pki_int
+
+- name: Login to Vault
+  delegate_to: "{{ groups['vault_servers'] | first }}"
+  when: ansible_hostname in groups['vault_servers']
+  run_once: true
+  tags: pki_int
+  block:
+    - name: Retrieve client token.
+      ansible.builtin.uri:
+        url: "{{ vault_address }}/v1/auth/userpass/login/{{ vault_admin_username }}"
+        method: POST
+        body_format: json
+        body: '{ "password": "{{ admin_password }}" }'
+        status_code:
+          - 200
+          - 204
+        validate_certs: false
+      register: vault_admin_login_response
+
+    - name: Set fact of client token.
+      ansible.builtin.set_fact:
+        admin_token: "{{ vault_admin_login_response.json.auth.client_token }}"
+
+    - name: Register PKI mount results
+      ansible.builtin.uri:
+        url: "{{ vault_address }}/v1/sys/mounts/{{ vault_pki_int_path }}"
+        headers:
+          X-Vault-Token: "{{ admin_token }}"
+        method: GET
+        body_format: json
+        status_code:
+          - 200
+          - 204
+          - 400
+        validate_certs: false
+      register: pki_mount_results
+
+    - name: Check if Intermediate certificate directory exists.
+      ansible.builtin.stat:
+        path: "{{ vault_pki_int_local_path }}"
+      register: pki_int_dir
+
+- name: Prep
+  when:
+    - pki_int_dir.stat.isdir is not defined
+    - ansible_hostname in groups['vault_servers']
+  delegate_to: "{{ groups['vault_servers'] | first }}"
+  run_once: true
+  tags: pki_int
+  block:
+    - name: Prep - Ensure intermediate main directory
+      ansible.builtin.file:
+        path: "{{ vault_pki_int_local_path }}"
+        state: directory
+        mode: 0700
+    - name: Prep - Ensure intermediate certificate directory
+      ansible.builtin.file:
+        path: "{{ vault_pki_int_local_path }}/certs"
+        state: directory
+        mode: 0700
+    - name: Prep - Ensure intermediate database
+      ansible.builtin.file:
+        path: "{{ vault_pki_int_local_path }}/index.txt"
+        state: touch
+        mode: 0600
+    - name: Prep - Ensure openssl config file
+      ansible.builtin.template:
+        src: openssl_int.cnf.j2
+        dest: "{{ vault_pki_int_local_path }}/openssl_int.cnf"
+        mode: 0644
+    - name: Prep - Ensure Vault policy file
+      ansible.builtin.template:
+        src: intermediate-ca-policy.hcl.j2
+        dest: "{{ vault_pki_int_policy_file }}"
+        mode: 0644
+
+- name: Ensure PKI
+  when:
+    - pki_mount_results.status == 400
+    - ansible_hostname in groups['vault_servers']
+  delegate_to: "{{ groups['vault_servers'] | first }}"
+  run_once: true
+  tags: pki_int
+  block:
+    - name: Vault - Ensure secrets engine
+      ansible.builtin.command:
+        cmd: "{{ vault_binary }} secrets enable -path={{ vault_pki_int_path }} pki"
+      environment:
+        VAULT_TOKEN: "{{ admin_token }}"
+      changed_when: true
+    - name: Vault - Tune secrets engine
+      ansible.builtin.command:
+        cmd: "{{ vault_binary }} secrets tune -max-lease-ttl={{ vault_pki_int_max_ttl }} {{ vault_pki_int_path }}"
+      environment:
+        VAULT_TOKEN: "{{ admin_token }}"
+      changed_when: true
+    - name: Vault - Create CSR
+      ansible.builtin.shell:
+        cmd: '{{ vault_binary }} write -format=json {{ vault_pki_int_path }}/intermediate/generate/internal common_name="{{ vault_pki_int_common_name }}" ttl={{ vault_pki_int_ttl }} | jq -r .data.csr > {{ vault_pki_int_csr_file }}'
+      environment:
+        VAULT_TOKEN: "{{ admin_token }}"
+      changed_when: true
+    - name: OpenSSL - Sign certificate with Root CA
+      ansible.builtin.command:
+        cmd: "openssl ca -batch -config {{ vault_pki_int_local_path }}/openssl_int.cnf -in {{ vault_pki_int_csr_file }} -out {{ vault_pki_int_pem_file }} -days {{ vault_pki_int_openssl_days }} -notext"
+      changed_when: true
+    - name: Vault - Import signed certificate
+      ansible.builtin.command:
+        cmd: "{{ vault_binary }} write {{ vault_pki_int_path }}/intermediate/set-signed certificate=@{{ vault_pki_int_pem_file }}"
+      environment:
+        VAULT_TOKEN: "{{ admin_token }}"
+      changed_when: true
+    - name: Vault - Set URLs
+      ansible.builtin.command:
+        cmd: '{{ vault_binary }} write {{ vault_pki_int_path }}/config/urls issuing_certificates="{{ vault_pki_int_url_issue }}" crl_distribution_points="{{ vault_pki_int_url_crl }}"'
+      environment:
+        VAULT_TOKEN: "{{ admin_token }}"
+      changed_when: true
+    - name: Vault - Write PKI role for consul
+      ansible.builtin.command:
+        cmd: "{{ vault_binary }} write {{ vault_pki_int_path }}/roles/{{ vault_pki_int_role_name }} allowed_domains={{ vault_pki_int_role_allowed_domains }} allow_subdomains={{ vault_pki_int_role_allow_subdomains }} max_ttl={{ vault_pki_int_role_max_ttl }}"
+      environment:
+        VAULT_TOKEN: "{{ admin_token }}"
+      changed_when: true
+    - name: Vault - Write policy for accessing the secrets engine
+      ansible.builtin.command:
+        cmd: "{{ vault_binary }} policy write {{ vault_pki_int_policy_name }} {{ vault_pki_int_policy_file }}"
+      environment:
+        VAULT_TOKEN: "{{ admin_token }}"
+      changed_when: true
+    - name: Ensure cleanup
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "{{ vault_pki_int_csr_file }}"
+        - "{{ vault_pki_int_pem_file }}"
+        - "{{ vault_pki_int_policy_file }}"
+
+- name: Register PKI mount results
+  ansible.builtin.uri:
+    url: "{{ vault_address }}/v1/sys/mounts/{{ vault_pki_int_path }}"
+    headers:
+      X-Vault-Token: "{{ admin_token }}"
+    method: GET
+    body_format: json
+    status_code:
+      - 200
+      - 204
+      - 400
+    validate_certs: false
+  when: ansible_hostname in groups['vault_servers']
+  delegate_to: "{{ groups['vault_servers'] | first }}"
+  run_once: true
+  tags: pki_int
+  register: pki_mount_results_retest
+
+- name: Vault - Retrieve default issuer CA chain # noqa risky-shell-pipe
+  when:
+    - pki_mount_results_retest.status == 200
+    - ansible_hostname in groups['vault_servers']
+  ansible.builtin.shell: "{{ vault_binary }} read -format=json {{ vault_pki_int_path }}/issuer/default | jq -r .data.ca_chain | jq -r .[]"
+  environment:
+    VAULT_TOKEN: "{{ admin_token }}"
+  changed_when: false
+  register: pki_int_ca_chain
+  delegate_to: "{{ groups['vault_servers'] | first }}"
+  run_once: true
+  tags: pki_int
+
+- name: Update Certificate Chain
+  when:
+    - pki_mount_results_retest.status == 200
+  tags: pki_int
+  block:
+    - name: Ensure the CA chain is copied to the local certs directory - Debian.
+      ansible.builtin.copy:
+        dest: "/usr/local/share/ca-certificates/{{ vault_pki_int_ca_share_filename }}"
+        content: "{{ pki_int_ca_chain.stdout }}"
+        mode: 0644
+      when: ansible_os_family == 'Debian'
+
+    - name: Ensure the CA chain is copied to the local certs directory - RedHat.
+      ansible.builtin.copy:
+        dest: "/etc/pki/ca-trust/source/anchors/{{ vault_pki_int_ca_share_filename }}"
+        content: "{{ pki_int_ca_chain.stdout }}"
+        mode: 0644
+      when: ansible_os_family == 'RedHat'
+
+    - name: Ensure certificate index is updated - Debian.
+      ansible.builtin.command: "/usr/sbin/update-ca-certificates -f"
+      when: ansible_os_family == 'Debian'
+
+    - name: Ensure certificate index is updated - RedHat.
+      ansible.builtin.command: "/usr/bin/update-ca-trust extract"
+      when: ansible_os_family == 'RedHat'

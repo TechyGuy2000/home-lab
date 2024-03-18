@@ -1,0 +1,13 @@
+---
+traefik_version: 2.10.4
+
+traefik_group_name: "traefik"
+traefik_group_gid: "1400"
+
+traefik_user_name: "traefik"
+traefik_user_gid: "1400"
+
+traefik_base_dir: "/opt/traefik"
+traefik_log_dir: "/var/log/traefik"
+
+traefik_binary: "/usr/local/bin/traefik"

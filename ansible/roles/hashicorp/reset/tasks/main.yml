@@ -1,0 +1,506 @@
+---
+- name: GENERAL
+  tags: nomad, vault, consul
+  run_once: true
+  block:
+    - name: GENERAL - Retrieve Secret ID from bootstrap output.
+      ansible.builtin.shell: "awk '/SecretID/ {print $2}' {{ consul_bootstrap_token_local_path }}"
+      changed_when: false
+      become: false
+      delegate_to: localhost
+      register: consul_acl_bootstrap_output
+      failed_when: false
+    - name: GENERAL - Set the Secret ID as a fact.
+      ansible.builtin.set_fact:
+        consul_acl_bootstrap_secret_id: "{{ consul_acl_bootstrap_output.stdout }}"
+      failed_when: false
+
+- name: NOMAD
+  tags: nomad
+  block:
+    - name: NOMAD - VAULT cleanup
+      delegate_to: localhost
+      run_once: true
+      block:
+        - name: NOMAD - VAULT - Set fact of active Vault
+          ansible.builtin.set_fact:
+            active_vault_address: "https://active.vault.service.{{ consul_domain }}:8200"
+
+        - name: NOMAD - VAULT - Set fact of admin password
+          ansible.builtin.set_fact:
+            admin_password: "{{ lookup('file', vault_admin_local_path) }}"
+          failed_when: false
+
+        - name: NOMAD - VAULT - Log in and retrieve client token
+          ansible.builtin.uri:
+            url: "{{ active_vault_address }}/v1/auth/userpass/login/{{ vault_admin_username }}"
+            method: POST
+            body_format: json
+            body: '{ "password": "{{ admin_password }}" }'
+            status_code:
+              - 200
+              - 204
+            validate_certs: false
+          register: vault_admin_login_response
+          failed_when: false
+
+        - name: NOMAD - VAULT - Set fact of client token
+          ansible.builtin.set_fact:
+            vault_token: "{{ vault_admin_login_response.json.auth.client_token }}"
+          failed_when: false
+
+        - name: NOMAD - VAULT - List all accessors
+          ansible.builtin.uri:
+            url: "{{ active_vault_address }}/v1/auth/token/accessors"
+            method: LIST
+            headers:
+              X-Vault-Token: "{{ vault_token }}"
+            body_format: json
+            status_code:
+              - 200
+              - 204
+            validate_certs: false
+          failed_when: false
+          register: nomad_vault_accessors_raw
+
+        - name: NOMAD - VAULT - Lookup own accessor
+          ansible.builtin.uri:
+            url: "{{ active_vault_address }}/v1/auth/token/lookup-self"
+            method: GET
+            headers:
+              X-Vault-Token: "{{ vault_token }}"
+            body_format: json
+            status_code:
+              - 200
+              - 204
+            validate_certs: false
+          failed_when: false
+          register: nomad_vault_own_accessor_raw
+
+        - name: Set fact of accessors
+          ansible.builtin.set_fact:
+            nomad_vault_accessors: "{{ nomad_vault_accessors_raw.json.data | json_query('keys') }}"
+
+        - name: Set fact of own accessor
+          ansible.builtin.set_fact:
+            nomad_vault_own_accessor: "{{ nomad_vault_own_accessor_raw.json.data.accessor }}"
+
+        - name: Set fact of accessors minus own accessor
+          ansible.builtin.set_fact:
+            nomad_vault_accessors_new: "{{ nomad_vault_accessors | difference(nomad_vault_own_accessor) }}"
+
+        - name: NOMAD - VAULT - Revoke all tokens through accessor
+          ansible.builtin.uri:
+            url: "{{ active_vault_address }}/v1/auth/token/revoke-accessor"
+            method: POST
+            headers:
+              X-Vault-Token: "{{ vault_token }}"
+            body_format: json
+            body: '{ "accessor": "{{ item }}" }'
+            status_code:
+              - 200
+              - 204
+            validate_certs: false
+          failed_when: false
+          loop: "{{ nomad_vault_accessors_new }}"
+
+        - name: NOMAD - VAULT - Remove operator user
+          ansible.builtin.uri:
+            url: "{{ active_vault_address }}/v1/auth/userpass/users/operator"
+            method: DELETE
+            headers:
+              X-Vault-Token: "{{ vault_token }}"
+            body_format: json
+            status_code:
+              - 200
+              - 204
+            validate_certs: false
+          failed_when: false
+
+        - name: NOMAD - VAULT - Remove operator policy
+          ansible.builtin.uri:
+            url: "{{ active_vault_address }}/v1/sys/policy/{{ vault_operator_policy_name }}"
+            method: DELETE
+            headers:
+              X-Vault-Token: "{{ vault_token }}"
+            body_format: json
+            status_code:
+              - 200
+              - 204
+            validate_certs: false
+          failed_when: false
+
+        - name: NOMAD - VAULT - Disable Consul and Nomad secrets egine
+          ansible.builtin.uri:
+            url: "{{ active_vault_address }}/v1/sys/mounts/{{ item }}"
+            method: DELETE
+            headers:
+              X-Vault-Token: "{{ vault_token }}"
+            body_format: json
+            status_code:
+              - 200
+              - 204
+            validate_certs: false
+          failed_when: false
+          loop:
+            - consul
+            - nomad
+
+        - name: NOMAD - VAULT - Ensure removal of Nomad cluster PKI role
+          ansible.builtin.uri:
+            url: "{{ active_vault_address }}/v1/{{ vault_pki_int_path }}/roles/{{ vault_pki_int_nomad_role }}"
+            method: DELETE
+            headers:
+              X-Vault-Token: "{{ vault_token }}"
+            body_format: json
+            status_code:
+              - 200
+              - 204
+            validate_certs: false
+          failed_when: false
+    - name: NOMAD - Get service file details.
+      ansible.builtin.stat:
+        path: "{{ nomad_systemd_service_file }}"
+      register: nomad_systemd_service_file_details
+    - name: NOMAD - Service cleanup.
+      when: nomad_systemd_service_file_details.stat.exists
+      block:
+        - name: NOMAD - Ensure service is stopped.
+          ansible.builtin.systemd:
+            name: "{{ nomad_service_name }}"
+            state: stopped
+        - name: NOMAD - Remove the service file
+          ansible.builtin.file:
+            path: "{{ nomad_systemd_service_file }}"
+            state: absent
+        - name: NOMAD - Reload systemd daemon.
+          ansible.builtin.systemd:
+            daemon_reload: true
+    - name: NOMAD - Get all nomad config files.
+      ansible.builtin.find:
+        paths: "{{ nomad_etc_directory }}"
+        patterns: "*.*"
+      register: nomad_files
+    - name: NOMAD - Delete all nomad config files.
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ nomad_files.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+    - name: NOMAD - Data directory mount points.
+      when: ansible_hostname in groups['nomad_clients']
+      block:
+        - name: NOMAD - Get all mount points that start with /opt/nomad/ and register this.
+          ansible.builtin.shell: "/usr/bin/df -t tmpfs --output=target | grep '/opt/nomad'"
+          ignore_errors: true
+          changed_when: false
+          register: nomad_mounts
+        - name: NOMAD - Unmount all found mount points.
+          mount:
+            path: "{{ item }}"
+            state: unmounted
+          with_items: "{{ nomad_mounts.stdout_lines }}"
+          when: nomad_mounts is defined
+    - name: NOMAD - Delete nomad data directory.
+      ansible.builtin.file:
+        path: "{{ nomad_data_directory }}"
+        state: absent
+    - name: NOMAD - Delete nomad log directory.
+      ansible.builtin.file:
+        path: "{{ nomad_log_directory }}"
+        state: absent
+    - name: NOMAD - Remove Nomad Server policy from Consul.
+      ansible.builtin.command: "{{ consul_binary }} acl policy delete -name {{ nomad_consul_server_service_name }}"
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      run_once: true
+      failed_when: false
+      changed_when: true
+    - name: NOMAD - Remove Nomad Client policy from Consul.
+      ansible.builtin.command: "{{ consul_binary }} acl policy delete -name {{ nomad_consul_client_service_name }}"
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      run_once: true
+      failed_when: false
+      changed_when: true
+    - name: NOMAD - Get AccessorID of Nomad Server Token.
+      ansible.builtin.shell: "{{ consul_binary }} acl token list | grep -B2 '{{ nomad_consul_server_token_description }}' | awk '/AccessorID/ {print $2}'"
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      register: consul_nomad_server_token
+      run_once: true
+      ignore_errors: true
+      changed_when: false
+    - name: NOMAD - Delete Nomad Server Token.
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      ansible.builtin.command: "{{ consul_binary }} acl token delete -id {{ consul_nomad_server_token.stdout }}"
+      run_once: true
+      failed_when: false
+      changed_when: true
+    - name: NOMAD - Get AccessorID of Nomad Client Token.
+      ansible.builtin.shell: "{{ consul_binary }} acl token list | grep -B2 '{{ nomad_consul_client_token_description }}' | awk '/AccessorID/ {print $2}'"
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      register: consul_nomad_client_token
+      run_once: true
+      ignore_errors: true
+      changed_when: false
+    - name: NOMAD - Delete Nomad Client Token.
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      ansible.builtin.command: "{{ consul_binary }} acl token delete -id {{ consul_nomad_client_token.stdout }}"
+      run_once: true
+      failed_when: false
+      changed_when: true
+    - name: NOMAD - Ensure crontab for snapshot is absent.
+      ansible.builtin.cron:
+        name: "Nomad Snapshots"
+        user: "{{ nomad_snapshot_backup_location_owner }}"
+        state: absent
+      failed_when: false
+    - name: NOMAD - Ensure backups are absent.
+      ansible.builtin.file:
+        path: "{{ nomad_snapshot_backup_main }}"
+        state: absent
+    - name: Ensure .bashrc cleanup
+      ansible.builtin.lineinfile:
+        path: "/home/{{ ansible_env.SUDO_USER }}/.bashrc"
+        regexp: "NOMAD_ADDR"
+        state: absent
+      failed_when: false
+      delegate_to: localhost
+      run_once: true
+
+- name: VAULT
+  tags: vault
+  block:
+    - name: VAULT - Get service file details.
+      ansible.builtin.stat:
+        path: "{{ vault_systemd_service_file }}"
+      register: vault_systemd_service_file_details
+    - name: VAULT - Service cleanup.
+      when: vault_systemd_service_file_details.stat.exists
+      block:
+        - name: VAULT - Ensure service is stopped.
+          ansible.builtin.systemd:
+            name: "{{ vault_service_name }}"
+            state: stopped
+        - name: VAULT - Remove the service file
+          ansible.builtin.file:
+            path: "{{ vault_systemd_service_file }}"
+            state: absent
+        - name: VAULT - Reload systemd daemon.
+          ansible.builtin.systemd:
+            daemon_reload: true
+    - name: VAULT - Get all vault config files.
+      ansible.builtin.find:
+        paths: "{{ vault_etc_directory }}"
+        patterns: "*.*"
+      register: vault_files
+    - name: VAULT - Delete all vault config files.
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ vault_files.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+    - name: VAULT - Delete vault data directory.
+      ansible.builtin.file:
+        path: "{{ vault_data_directory }}"
+        state: absent
+    - name: VAULT - Delete vault TLS directory.
+      ansible.builtin.file:
+        path: "{{ vault_tls_directory }}"
+        state: absent
+    - name: VAULT - Delete vault log directory.
+      ansible.builtin.file:
+        path: "{{ vault_log_directory }}"
+        state: absent
+    - name: VAULT - Delete vault logrotate file.
+      ansible.builtin.file:
+        path: "{{ vault_log_rotate_dir }}/{{ vault_log_rotate_filename }}"
+        state: absent
+    - name: VAULT - Remove Vault data from Consul.
+      ansible.builtin.command: "{{ consul_binary }} kv delete -recurse {{ vault_service_name }}/"
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      failed_when: false
+      changed_when: true
+    - name: VAULT - Remove Policy data from Consul.
+      ansible.builtin.command: "{{ consul_binary }} acl policy delete -name {{ vault_consul_service_name }}"
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      failed_when: false
+      changed_when: true
+      run_once: true
+    - name: VAULT - Get AccessorID of Vault Token.
+      ansible.builtin.shell: "{{ consul_binary }} acl token list | grep -B2 '{{ vault_consul_service_description }}' | awk '/AccessorID/ {print $2}'"
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      register: consul_vault_token
+      run_once: true
+      failed_when: false
+      changed_when: true
+    - name: VAULT - Delete Vault Token.
+      environment:
+        CONSUL_HTTP_ADDR: "{{ consul_address }}"
+        CONSUL_HTTP_TOKEN: "{{ consul_acl_bootstrap_secret_id }}"
+      ansible.builtin.command: "{{ consul_binary }} acl token delete -id {{ consul_vault_token.stdout }}"
+      run_once: true
+      failed_when: false
+      changed_when: true
+    - name: VAULT - Delete Vault CA certs.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      failed_when: false
+      loop:
+        - "/etc/pki/ca-trust/source/anchors/{{ vault_pki_int_ca_share_filename }}"
+        - "/usr/local/share/ca-certificates/{{ vault_pki_int_ca_share_filename }}"
+        - "/etc/pki/ca-trust/source/anchors/{{ vault_ssl_ca_share_filename }}"
+        - "/usr/local/share/ca-certificates/{{ vault_ssl_ca_share_filename }}"
+    - name: VAULT - Ensure crontab for snapshot is absent.
+      ansible.builtin.cron:
+        name: "Vault Snapshots"
+        user: "{{ vault_snapshot_backup_location_owner }}"
+        state: absent
+      failed_when: false
+    - name: VAULT - Ensure backups are absent.
+      ansible.builtin.file:
+        path: "{{ vault_snapshot_backup_main }}"
+        state: absent
+    - name: Ensure .bashrc cleanup
+      ansible.builtin.lineinfile:
+        path: "/home/{{ ansible_env.SUDO_USER }}/.bashrc"
+        regexp: "VAULT_ADDR"
+        state: absent
+      failed_when: false
+      delegate_to: localhost
+      run_once: true
+
+- name: CONSUL
+  tags: consul
+  block:
+    - name: CONSUL - Get service file details.
+      ansible.builtin.stat:
+        path: "{{ consul_systemd_service_file }}"
+      register: consul_systemd_service_file_details
+    - name: Service cleanup.
+      when: consul_systemd_service_file_details.stat.exists
+      block:
+        - name: CONSUL - Ensure service is stopped.
+          ansible.builtin.systemd:
+            name: "{{ consul_service_name }}"
+            state: stopped
+        - name: CONSUL - Remove the service file
+          ansible.builtin.file:
+            path: "{{ consul_systemd_service_file }}"
+            state: absent
+        - name: CONSUL - Reload systemd daemon.
+          ansible.builtin.systemd:
+            daemon_reload: true
+    - name: CONSUL - Get all consul config files.
+      ansible.builtin.find:
+        paths: "{{ consul_etc_directory }}"
+        patterns: "*.*"
+      register: consul_files
+    - name: CONSUL - Delete all consul config files.
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ consul_files.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+    - name: CONSUL - Delete consul data directory.
+      ansible.builtin.file:
+        path: "{{ consul_data_directory }}"
+        state: absent
+    - name: CONSUL - Delete consul log directory.
+      ansible.builtin.file:
+        path: "{{ consul_log_directory }}"
+        state: absent
+    - name: CONSUL - Ensure crontab for snapshot is absent.
+      ansible.builtin.cron:
+        name: "Consul Snapshots"
+        user: "{{ consul_snapshot_backup_location_owner }}"
+        state: absent
+      failed_when: false
+    - name: CONSUL - Ensure backups are absent.
+      ansible.builtin.file:
+        path: "{{ consul_snapshot_backup_main }}"
+        state: absent
+    - name: CONSUL - Delete Consul CA cert.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      failed_when: false
+      loop:
+        - "/etc/pki/ca-trust/source/anchors/Consul_CA.pem"
+        - "/usr/local/share/ca-certificates/Consul_CA.pem"
+    - name: Ensure .bashrc cleanup
+      ansible.builtin.lineinfile:
+        path: "/home/{{ ansible_env.SUDO_USER }}/.bashrc"
+        regexp: "CONSUL_HTTP_ADDR"
+        state: absent
+      failed_when: false
+      delegate_to: localhost
+      run_once: true
+
+- name: DOCKER
+  when: ansible_hostname in groups['docker_clients']
+  tags: docker
+  become: false
+  block:
+    - name: Get running containers
+      community.docker.docker_host_info:
+        containers: true
+      register: docker_container_info
+
+    - name: Stop running containers
+      community.docker.docker_container:
+        name: "{{ item }}"
+        state: absent
+      loop: "{{ docker_container_info.containers | map(attribute='Id') | list }}"
+
+    - name: Get details of all images
+      community.docker.docker_host_info:
+        images: true
+        verbose_output: true
+      register: docker_image_info
+
+    - name: Remove all images
+      community.docker.docker_image:
+        name: "{{ item }}"
+        state: absent
+        force_absent: true
+      loop: "{{ docker_image_info.images | map(attribute='Id') | list }}"
+
+- name: TOKENS
+  tags: tokens
+  become: false
+  delegate_to: localhost
+  run_once: true
+  block:
+    - name: TOKENS - Get all local token files.
+      ansible.builtin.find:
+        paths: "{{ bootstrap_location }}"
+        patterns: "*.*"
+      register: token_files
+    - name: TOKENS - Delete all token files.
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      with_items: "{{ token_files.files }}"
+      loop_control:
+        label: "{{ item.path }}"

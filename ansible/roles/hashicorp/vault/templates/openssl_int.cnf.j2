@@ -1,0 +1,42 @@
+[ ca ]
+default_ca              = CA_default
+
+[ CA_default ]
+certificate             = {{ vault_ssl_base_path }}/vault-ca.pem
+private_key             = {{ vault_ssl_base_path }}/vault-ca-key.pem
+certs                   = {{ vault_ssl_base_path }}/intermediate/certs
+database                = {{ vault_ssl_base_path }}/intermediate/index.txt
+new_certs_dir           = {{ vault_ssl_base_path }}/intermediate/certs
+serial                  = {{ vault_ssl_base_path }}/intermediate/serial
+crlnumber               = {{ vault_ssl_base_path }}/intermediate/crlnumber
+name_opt                = ca_default
+cert_opt                = ca_default
+rand_serial             = yes
+email_in_dn             = no
+default_days            = 365
+default_crl_days        = 30
+default_md              = sha256
+preserve                = no
+policy                  = policy_anything
+copy_extensions         = copy
+x509_extensions         = intermediate_ca_ext
+default_crl_days        = 100
+crl_extensions          = crl_ext
+
+[ policy_anything ]
+countryName             = optional
+stateOrProvinceName     = optional
+localityName            = optional
+organizationName        = optional
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ intermediate_ca_ext ]
+keyUsage                = critical,keyCertSign,cRLSign
+basicConstraints        = critical,CA:true
+subjectKeyIdentifier    = hash
+authorityKeyIdentifier  = keyid:always
+
+[ crl_ext ]
+authorityKeyIdentifier  = keyid:always

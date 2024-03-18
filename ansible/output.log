@@ -1,0 +1,3419 @@
+ansible-playbook [core 2.16.4]
+  config file = /Users/gregbolton/Documents/GitHub/home-lab/ansible/ansible.cfg
+  configured module search path = ['/Users/gregbolton/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /Users/gregbolton/Library/Python/3.11/lib/python/site-packages/ansible
+  ansible collection location = /Users/gregbolton/.ansible/collections:/usr/share/ansible/collections
+  executable location = /Users/gregbolton/Library/Python/3.11/bin/ansible-playbook
+  python version = 3.11.5 (v3.11.5:cce6ba91b3, Aug 24 2023, 10:50:31) [Clang 13.0.0 (clang-1300.0.29.30)] (/Library/Frameworks/Python.framework/Versions/3.11/bin/python3)
+  jinja version = 3.1.3
+  libyaml = True
+Using /Users/gregbolton/Documents/GitHub/home-lab/ansible/ansible.cfg as config file
+redirecting (type: callback) ansible.builtin.yaml to community.general.yaml
+redirecting (type: callback) ansible.builtin.yaml to community.general.yaml
+Skipping callback 'default', as we already have a stdout callback.
+Skipping callback 'minimal', as we already have a stdout callback.
+Skipping callback 'oneline', as we already have a stdout callback.
+
+PLAYBOOK: hashi-lab-common.yml *************************************************
+1 plays in playbooks/hashi-lab-common.yml
+
+PLAY [Common preparations] *****************************************************
+
+TASK [Gathering Facts] *********************************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/playbooks/hashi-lab-common.yml:2
+<192.168.50.49> ssh_retry: attempt: 1, caught exception(Missing sudo password) from cmd ([b'ssh', b'-o', b'ControlMaster=auto', b'-o', b'ControlPersist=60s', b'-o', b'UserKnownHostsFile=/dev/null', b'-o', b'StrictHostKeyChecking=no', b'-o', b'IdentityFile="/Users/gregbolton/.ssh/id_rsa"', b'-o', b'KbdInteractiveAuthentication=no', b'-o', b'PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey', b'-o', b'PasswordAuthentication=no', b'-o', b'User="gregbolton"', b'-o', b'ConnectTimeout=10', b'-o', b'ControlPath="/Users/gregbolton/.ansible/cp/c87d2f3059"', b'192.168.50.49', b'/bin/sh -c \'sudo -H -S -n  -u root /bin/sh -c \'"\'"\'echo BECOME-SUCCESS-rsledmrpupacvwpcwtnvsnyyeyyxaqjy ; /usr/bin/python3\'"\'"\' && sleep 0\'']...), pausing for 0 seconds
+<192.168.50.49> ssh_retry: attempt: 2, caught exception(Missing sudo password) from cmd ([b'ssh', b'-o', b'ControlMaster=auto', b'-o', b'ControlPersist=60s', b'-o', b'UserKnownHostsFile=/dev/null', b'-o', b'StrictHostKeyChecking=no', b'-o', b'IdentityFile="/Users/gregbolton/.ssh/id_rsa"', b'-o', b'KbdInteractiveAuthentication=no', b'-o', b'PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey', b'-o', b'PasswordAuthentication=no', b'-o', b'User="gregbolton"', b'-o', b'ConnectTimeout=10', b'-o', b'ControlPath="/Users/gregbolton/.ansible/cp/c87d2f3059"', b'192.168.50.49', b'/bin/sh -c \'sudo -H -S -n  -u root /bin/sh -c \'"\'"\'echo BECOME-SUCCESS-rsledmrpupacvwpcwtnvsnyyeyyxaqjy ; /usr/bin/python3\'"\'"\' && sleep 0\'']...), pausing for 1 seconds
+ok: [consul3]
+ok: [docker2]
+ok: [docker1]
+ok: [nomad3]
+ok: [vault3]
+ok: [docker3]
+ok: [vault1]
+<192.168.50.49> ssh_retry: attempt: 3, caught exception(Missing sudo password) from cmd ([b'ssh', b'-o', b'ControlMaster=auto', b'-o', b'ControlPersist=60s', b'-o', b'UserKnownHostsFile=/dev/null', b'-o', b'StrictHostKeyChecking=no', b'-o', b'IdentityFile="/Users/gregbolton/.ssh/id_rsa"', b'-o', b'KbdInteractiveAuthentication=no', b'-o', b'PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey', b'-o', b'PasswordAuthentication=no', b'-o', b'User="gregbolton"', b'-o', b'ConnectTimeout=10', b'-o', b'ControlPath="/Users/gregbolton/.ansible/cp/c87d2f3059"', b'192.168.50.49', b'/bin/sh -c \'sudo -H -S -n  -u root /bin/sh -c \'"\'"\'echo BECOME-SUCCESS-rsledmrpupacvwpcwtnvsnyyeyyxaqjy ; /usr/bin/python3\'"\'"\' && sleep 0\'']...), pausing for 3 seconds
+ok: [vault2]
+ok: [nomad1]
+ok: [consul1]
+ok: [nomad2]
+ok: [consul2]
+fatal: [desktop]: FAILED! => 
+  msg: Missing sudo password
+
+TASK [Ensure package cache update - Debian.] ***********************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/playbooks/hashi-lab-common.yml:19
+skipping: [consul1] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [consul2] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [consul3] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [vault1] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [vault2] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [vault3] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [nomad1] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [nomad2] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [nomad3] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [docker1] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [docker2] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+skipping: [docker3] => changed=false 
+  false_condition: ansible_os_family == 'Debian'
+  skip_reason: Conditional result was False
+
+TASK [Ensure package cache update - RedHat.] ***********************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/playbooks/hashi-lab-common.yml:24
+ok: [docker1] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [consul3] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [docker3] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [docker2] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [vault3] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [nomad3] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [vault1] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [consul2] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [vault2] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [nomad2] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [consul1] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+ok: [nomad1] => changed=false 
+  msg: Cache updated
+  rc: 0
+  results: []
+
+TASK [Ensure EPEL repository is enabled] ***************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/playbooks/hashi-lab-common.yml:29
+ok: [consul3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+
+TASK [geerlingguy.pip : Ensure Pip is installed.] ******************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.pip/tasks/main.yml:2
+ok: [nomad3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+
+TASK [geerlingguy.pip : Ensure pip_install_packages are installed.] ************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/geerlingguy.pip/tasks/main.yml:7
+ok: [vault3] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker1] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker3] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul3] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad3] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker2] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul2] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault1] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker3] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault3] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker1] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad3] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul3] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad1] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul1] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad2] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault2] => (item={'name': 'cryptography'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - cryptography
+  item:
+    name: cryptography
+  name:
+  - cryptography
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: cryptography in /usr/local/lib64/python3.9/site-packages (42.0.5)
+    Requirement already satisfied: cffi>=1.12 in /usr/local/lib64/python3.9/site-packages (from cryptography) (1.16.0)
+    Requirement already satisfied: pycparser in /usr/local/lib/python3.9/site-packages (from cffi>=1.12->cryptography) (2.21)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker2] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault3] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker3] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad3] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker2] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul3] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker1] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul2] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault1] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad2] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault3] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul1] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker2] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad1] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault2] => (item={'name': 'docker'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - docker
+  item:
+    name: docker
+  name:
+  - docker
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: docker in /usr/local/lib/python3.9/site-packages (7.0.0)
+    Requirement already satisfied: requests>=2.26.0 in /usr/local/lib/python3.9/site-packages (from docker) (2.31.0)
+    Requirement already satisfied: urllib3>=1.26.0 in /usr/lib/python3.9/site-packages (from docker) (1.26.5)
+    Requirement already satisfied: packaging>=14.0 in /usr/local/lib/python3.9/site-packages (from docker) (24.0)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests>=2.26.0->docker) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests>=2.26.0->docker) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad3] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker3] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul3] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker1] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker2] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault3] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad3] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault1] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul3] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker1] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [docker3] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul2] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad1] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad2] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul1] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault2] => (item={'name': 'hvac'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - hvac
+  item:
+    name: hvac
+  name:
+  - hvac
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: hvac in /usr/local/lib/python3.9/site-packages (2.1.0)
+    Requirement already satisfied: requests<3.0.0,>=2.27.1 in /usr/local/lib/python3.9/site-packages (from hvac) (2.31.0)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2.10)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (2024.2.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests<3.0.0,>=2.27.1->hvac) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault1] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul2] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad1] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad2] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault2] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul1] => (item={'name': 'jmespath'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - jmespath
+  item:
+    name: jmespath
+  name:
+  - jmespath
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: jmespath in /usr/local/lib/python3.9/site-packages (1.0.1)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault1] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul2] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad1] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [nomad2] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [vault2] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+ok: [consul1] => (item={'name': 'python-nomad'}) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - /bin/pip3
+  - install
+  - python-nomad
+  item:
+    name: python-nomad
+  name:
+  - python-nomad
+  requirements: null
+  state: present
+  stderr: |-
+    WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+  stderr_lines: <omitted>
+  stdout: |-
+    Requirement already satisfied: python-nomad in /usr/local/lib/python3.9/site-packages (2.0.0)
+    Requirement already satisfied: requests in /usr/local/lib/python3.9/site-packages (from python-nomad) (2.31.0)
+    Requirement already satisfied: idna<4,>=2.5 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (2.10)
+    Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib64/python3.9/site-packages (from requests->python-nomad) (3.3.2)
+    Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/lib/python3.9/site-packages (from requests->python-nomad) (1.26.5)
+    Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/site-packages (from requests->python-nomad) (2024.2.2)
+  stdout_lines: <omitted>
+  version: null
+  virtualenv: null
+
+TASK [common : Ensure basic packages.] *****************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/common/tasks/main.yml:2
+ok: [docker3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+
+TASK [Ensure HashiCorp binaries.] **********************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/common/tasks/main.yml:7
+
+TASK [chrisvanmeer.hashicorp : Include right OS task file.] ********************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/chrisvanmeer.hashicorp/tasks/main.yml:3
+included: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/chrisvanmeer.hashicorp/tasks/setup-hashicorp-Rocky.yml for consul1, consul2, consul3, vault1, vault2, vault3, nomad1, nomad2, nomad3, docker1, docker2, docker3
+
+TASK [chrisvanmeer.hashicorp : Ensure Hashicorp repository is present.] ********
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/chrisvanmeer.hashicorp/tasks/setup-hashicorp-Rocky.yml:2
+ok: [docker2] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [consul3] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [nomad3] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [docker1] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [vault3] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [docker3] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [consul2] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [consul1] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [nomad2] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [vault1] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [vault2] => changed=false 
+  repo: HashiCorp
+  state: present
+ok: [nomad1] => changed=false 
+  repo: HashiCorp
+  state: present
+
+TASK [chrisvanmeer.hashicorp : Ensure packages are present.] *******************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/chrisvanmeer.hashicorp/tasks/setup-hashicorp-Rocky.yml:11
+ok: [docker1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault3] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [docker2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [consul1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [vault2] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+ok: [nomad1] => changed=false 
+  msg: Nothing to do
+  rc: 0
+  results: []
+
+TASK [common : Install autocompletion.] ****************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/common/tasks/main.yml:11
+ok: [consul3] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.068875'
+  end: '2024-03-17 22:01:24.032903'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:23.964028'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad3] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.055047'
+  end: '2024-03-17 22:01:24.057676'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.002629'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker3] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.076230'
+  end: '2024-03-17 22:01:24.079184'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.002954'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker2] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.061959'
+  end: '2024-03-17 22:01:24.133497'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.071538'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker1] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.057189'
+  end: '2024-03-17 22:01:24.151444'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.094255'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault3] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.061203'
+  end: '2024-03-17 22:01:24.184398'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.123195'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault2] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.105800'
+  end: '2024-03-17 22:01:24.200495'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.094695'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul2] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.105685'
+  end: '2024-03-17 22:01:24.311859'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.206174'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul1] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.112791'
+  end: '2024-03-17 22:01:24.324991'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.212200'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul3] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.070726'
+  end: '2024-03-17 22:01:24.381819'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.311093'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker2] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.063994'
+  end: '2024-03-17 22:01:24.409173'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.345179'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad3] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.067332'
+  end: '2024-03-17 22:01:24.415662'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.348330'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker3] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.061923'
+  end: '2024-03-17 22:01:24.429296'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.367373'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad2] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.111896'
+  end: '2024-03-17 22:01:24.418677'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.306781'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault1] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.121948'
+  end: '2024-03-17 22:01:24.410778'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.288830'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad1] => (item=['consul', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.111942'
+  end: '2024-03-17 22:01:24.418835'
+  failed_when_result: false
+  item:
+  - consul
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.306893'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker1] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.056932'
+  end: '2024-03-17 22:01:24.462365'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.405433'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault3] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.052162'
+  end: '2024-03-17 22:01:24.465968'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.413806'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker3] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.039374'
+  end: '2024-03-17 22:01:24.791611'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.752237'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker2] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.047539'
+  end: '2024-03-17 22:01:24.803810'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.756271'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault2] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.126080'
+  end: '2024-03-17 22:01:24.790439'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.664359'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker1] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.044295'
+  end: '2024-03-17 22:01:24.830820'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.786525'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul3] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.040863'
+  end: '2024-03-17 22:01:24.832438'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.791575'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad3] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.040826'
+  end: '2024-03-17 22:01:24.833797'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.792971'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault3] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.046038'
+  end: '2024-03-17 22:01:24.837431'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.791393'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul2] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.112273'
+  end: '2024-03-17 22:01:24.864176'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.751903'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul1] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.114031'
+  end: '2024-03-17 22:01:24.871856'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.757825'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad2] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.108124'
+  end: '2024-03-17 22:01:24.942642'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.834518'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault1] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.100459'
+  end: '2024-03-17 22:01:24.954863'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.854404'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad1] => (item=['consul', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - consul
+  - -autocomplete-install
+  delta: '0:00:00.091544'
+  end: '2024-03-17 22:01:24.998999'
+  failed_when_result: false
+  item:
+  - consul
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:24.907455'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker2] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.034997'
+  end: '2024-03-17 22:01:25.055813'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.020816'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker3] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.041975'
+  end: '2024-03-17 22:01:25.083329'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.041354'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad3] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.038216'
+  end: '2024-03-17 22:01:25.138623'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.100407'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker1] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.038353'
+  end: '2024-03-17 22:01:25.164049'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.125696'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault3] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.040501'
+  end: '2024-03-17 22:01:25.186107'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.145606'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul3] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.042607'
+  end: '2024-03-17 22:01:25.195963'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.153356'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault2] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.061918'
+  end: '2024-03-17 22:01:25.389080'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.327162'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker2] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.069404'
+  end: '2024-03-17 22:01:25.451055'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.381651'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker3] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.078990'
+  end: '2024-03-17 22:01:25.466371'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.387381'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad1] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.080157'
+  end: '2024-03-17 22:01:25.516878'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.436721'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul2] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.073128'
+  end: '2024-03-17 22:01:25.517862'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.444734'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad3] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.073125'
+  end: '2024-03-17 22:01:25.559952'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.486827'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul1] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.077594'
+  end: '2024-03-17 22:01:25.543459'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.465865'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker1] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.077011'
+  end: '2024-03-17 22:01:25.594596'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.517585'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault3] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.085398'
+  end: '2024-03-17 22:01:25.611502'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.526104'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault1] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.070350'
+  end: '2024-03-17 22:01:25.604975'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.534625'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul3] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.085220'
+  end: '2024-03-17 22:01:25.627771'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.542551'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad2] => (item=['nomad', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.070270'
+  end: '2024-03-17 22:01:25.616881'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.546611'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker2] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.072733'
+  end: '2024-03-17 22:01:25.763134'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.690401'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker3] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.085036'
+  end: '2024-03-17 22:01:25.792184'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.707148'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad3] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.065021'
+  end: '2024-03-17 22:01:25.898485'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.833464'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault3] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.077686'
+  end: '2024-03-17 22:01:25.922526'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.844840'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [docker1] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.068318'
+  end: '2024-03-17 22:01:25.947657'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.879339'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault2] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.069247'
+  end: '2024-03-17 22:01:25.934491'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.865244'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul3] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.066758'
+  end: '2024-03-17 22:01:25.953841'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.887083'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad1] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.072367'
+  end: '2024-03-17 22:01:26.028682'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.956315'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul2] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.067201'
+  end: '2024-03-17 22:01:26.059673'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:25.992472'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul1] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.075533'
+  end: '2024-03-17 22:01:26.123971'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.048438'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad2] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.096094'
+  end: '2024-03-17 22:01:26.184539'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.088445'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault1] => (item=['nomad', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - nomad
+  - -autocomplete-install
+  delta: '0:00:00.090884'
+  end: '2024-03-17 22:01:26.214173'
+  failed_when_result: false
+  item:
+  - nomad
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.123289'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul2] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.138988'
+  end: '2024-03-17 22:01:26.691895'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.552907'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault2] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.155198'
+  end: '2024-03-17 22:01:26.647165'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.491967'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad1] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.131797'
+  end: '2024-03-17 22:01:26.760620'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.628823'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad2] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.117607'
+  end: '2024-03-17 22:01:26.810945'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.693338'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul1] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.124103'
+  end: '2024-03-17 22:01:26.845448'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.721345'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault1] => (item=['vault', 'true']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.143091'
+  end: '2024-03-17 22:01:26.989507'
+  failed_when_result: false
+  item:
+  - vault
+  - 'true'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:26.846416'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /root/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul2] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.140688'
+  end: '2024-03-17 22:01:27.288677'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:27.147989'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault2] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.139414'
+  end: '2024-03-17 22:01:27.320006'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:27.180592'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad1] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.137132'
+  end: '2024-03-17 22:01:27.400108'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:27.262976'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [consul1] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.116150'
+  end: '2024-03-17 22:01:27.439421'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:27.323271'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [nomad2] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.148315'
+  end: '2024-03-17 22:01:27.460919'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:27.312604'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+ok: [vault1] => (item=['vault', 'false']) => changed=false 
+  ansible_loop_var: item
+  cmd:
+  - vault
+  - -autocomplete-install
+  delta: '0:00:00.095057'
+  end: '2024-03-17 22:01:27.555289'
+  failed_when_result: false
+  item:
+  - vault
+  - 'false'
+  msg: non-zero return code
+  rc: 1
+  start: '2024-03-17 22:01:27.460232'
+  stderr: |-
+    Error executing CLI: 1 error occurred:
+            * already installed in /home/gregbolton/.bashrc
+  stderr_lines: <omitted>
+  stdout: ''
+  stdout_lines: <omitted>
+
+TASK [common : Ensure local directories.] **************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/common/tasks/main.yml:24
+ok: [consul1 -> localhost] => (item=/Users/gregbolton/bootstrap-tokens) => changed=false 
+  ansible_loop_var: item
+  gid: 20
+  group: staff
+  item: /Users/gregbolton/bootstrap-tokens
+  mode: '0755'
+  owner: gregbolton
+  path: /Users/gregbolton/bootstrap-tokens
+  size: 64
+  state: directory
+  uid: 501
+
+TASK [common : Ensure stack script.] *******************************************
+task path: /Users/gregbolton/Documents/GitHub/home-lab/ansible/roles/common/tasks/main.yml:35
+ok: [consul3] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [vault3] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [docker3] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [docker2] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [docker1] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [nomad3] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [vault2] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [consul1] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [nomad2] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [nomad1] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [consul2] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+ok: [vault1] => changed=false 
+  checksum: ccc093c93b5cc23cf02ea4f3b31342ffeca2a4e0
+  dest: /usr/local/bin/stack
+  gid: 0
+  group: root
+  mode: '0755'
+  owner: root
+  path: /usr/local/bin/stack
+  secontext: system_u:object_r:bin_t:s0
+  size: 2462
+  state: file
+  uid: 0
+
+PLAY RECAP *********************************************************************
+consul1                    : ok=12   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+consul2                    : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+consul3                    : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+desktop                    : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+docker1                    : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+docker2                    : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+docker3                    : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+nomad1                     : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+nomad2                     : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+nomad3                     : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+vault1                     : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+vault2                     : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+vault3                     : ok=11   changed=0    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+

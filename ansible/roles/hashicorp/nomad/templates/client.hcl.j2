@@ -1,0 +1,37 @@
+{{ ansible_managed | comment }}
+
+client {
+{%if nomad_node_pool is defined %}
+  enabled   = true
+  node_pool = "{{ nomad_node_pool }}"
+{% else %}
+  enabled = true
+{% endif %}
+{% if waypoint_config is defined %}
+  host_volume {
+    {{ nomad_waypoint_server_volume_name }} {
+      path = "{{ nomad_waypoint_server_volume_full_path }}"
+      read_only = false
+    }
+    {{ nomad_waypoint_runner_volume_name }} {
+      path = "{{ nomad_waypoint_runner_volume_full_path }}"
+      read_only = false
+    }
+  }
+{% endif %}
+}
+
+acl {
+  enabled = true
+}
+
+plugin "docker" {
+  config {
+    endpoint         = "unix:///var/run/docker.sock"
+    allow_privileged = true
+    volumes {
+      enabled        = true
+      selinuxlabel   = "z"
+    }
+  }
+}

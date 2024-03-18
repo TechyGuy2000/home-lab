@@ -1,0 +1,17 @@
+---
+hashicorp_product_selection:
+  - consul
+  - nomad
+  - vault
+
+basic_packages:
+  - atop
+  - curl
+  - git
+  - jq
+  - lynx
+  - nmap
+  - tree
+  - vim
+
+bootstrap_location: "/home/{{ ansible_env.SUDO_USER }}/bootstrap-tokens"

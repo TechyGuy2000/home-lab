@@ -1,0 +1,69 @@
+---
+
+- name: Determine if there is already a working configuration present
+  ansible.builtin.stat:
+    path: /opt/traefikee/controller.env
+  register: _traefikee_controller_environment
+
+- name: Working configuration found. Retrieving current plugin registry token  # noqa risky-shell-pipe
+  ansible.builtin.shell:
+    cmd: awk '/PLUGIN_TOKEN/ { print $NF }' /opt/traefikee/controller.env | cut -d'"' -f2
+  changed_when: false
+  register: _traefikee_plugin_token
+  when: _traefikee_controller_environment.stat.exists
+
+- name: Set plugin registry token - current
+  ansible.builtin.set_fact:
+    traefikee_plugin_token: "{{ _traefikee_plugin_token.stdout }}"
+  delegate_facts: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ ansible_play_hosts_all }}"
+  when: _traefikee_controller_environment.stat.exists
+
+- name: Set plugin registry token - random
+  ansible.builtin.set_fact:
+    traefikee_plugin_token: "{{ lookup('community.general.random_string', length=32, base64=true) }}"
+  delegate_facts: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ ansible_play_hosts_all }}"
+  when: not _traefikee_controller_environment.stat.exists
+
+- name: Ensure environment file
+  ansible.builtin.template:
+    src: controller.env.j2
+    dest: /opt/traefikee/controller.env
+    owner: "{{ traefikee_user_name }}"
+    group: "{{ traefikee_group_name }}"
+    mode: 0640
+
+- name: Ensure systemd unit file
+  ansible.builtin.copy:
+    src: traefikee-controller.service
+    dest: /etc/systemd/system/traefikee-controller.service
+    mode: 0644
+
+- name: Ensure systemd service
+  ansible.builtin.systemd:
+    daemon_reload: true
+    service: traefikee-controller.service
+    state: started
+    enabled: true
+
+- name: Allow time for tokens to be created
+  ansible.builtin.pause:
+    seconds: 3
+  run_once: true
+  delegate_to: localhost
+
+- name: Register proxy token
+  ansible.builtin.slurp:
+    src: /opt/traefikee/tokens/proxy
+  register: _traefikee_proxy_token
+  run_once: true
+
+- name: Set proxy token fact
+  ansible.builtin.set_fact:
+    traefikee_proxy_token: "{{ _traefikee_proxy_token.content | b64decode }}"
+  delegate_facts: true
+  delegate_to: "{{ item }}"
+  with_items: "{{ ansible_play_hosts_all }}"

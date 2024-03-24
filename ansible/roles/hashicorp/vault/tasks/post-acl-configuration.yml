@@ -7,7 +7,7 @@
 
 - name: Take time for the service to get fully operator
   ansible.builtin.pause:
-    seconds: 10
+    seconds: 120
 
 - name: Check the Vault initialization status.
   ansible.builtin.shell: "{{ vault_binary }} status | grep -i initialized | awk '{print $2}'" # noqa: risky-shell-pipe
@@ -42,5 +42,25 @@
   become: false
   when:
     - vault_is_initialized.stdout == "false"
-  delegate_to: localhost
+  delegate_to: "{{ groups['consul_servers'] | first }}"
   run_once: true
+
+- name: Check if Vault master keys file exists on Consul server
+  ansible.builtin.stat:
+    path: "{{ vault_bootstrap_init_local_path }}"
+  delegate_to: "{{ groups['consul_servers'] | first }}"
+  register: vault_master_keys_file
+  run_once: true
+
+- name: Print confirmation if Vault master keys file exists
+  ansible.builtin.debug:
+    msg: "Vault master keys file exists at {{ vault_bootstrap_init_local_path }} on Consul server."
+  when: vault_master_keys_file.stat.exists
+  run_once: true
+
+- name: Print warning if Vault master keys file does not exist
+  ansible.builtin.debug:
+    msg: "Vault master keys file does not exist at {{ vault_bootstrap_init_local_path }} on Consul server. Check the initialization and file storage tasks for errors."
+  when: not vault_master_keys_file.stat.exists
+  run_once: true
+

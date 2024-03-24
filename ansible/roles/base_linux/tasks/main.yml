@@ -6,6 +6,7 @@
       - setroubleshoot-plugins
       - setroubleshoot-server
     state: absent
+  when: ansible_os_family in ['RedHat', 'Rocky']
 
 - name: Check if setroubleshootd service exists
   ansible.builtin.command: systemctl list-unit-files setroubleshootd.service
@@ -13,6 +14,7 @@
   ignore_errors: true
   changed_when: false
   failed_when: false
+  when: ansible_os_family in ['RedHat', 'Rocky']
 
 - name: Disable setroubleshoot systemd service
   ansible.builtin.systemd:
@@ -21,6 +23,7 @@
     state: stopped
   ignore_errors: yes
   when: service_check.rc == 0
+  when: ansible_os_family in ['RedHat', 'Rocky']
 
 - name: Remove setroubleshoot systemd service file
   ansible.builtin.file:
@@ -28,7 +31,23 @@
     state: absent
   ignore_errors: yes
   when: service_check.rc == 0
+  when: ansible_os_family in ['RedHat', 'Rocky']
 
 - name: Reload systemd to apply changes
   ansible.builtin.systemd:
     daemon_reload: yes
+  when: ansible_os_family in ['RedHat', 'Rocky']
+
+- name: Update all packages to the latest version
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+  when: ansible_os_family in ['RedHat', 'Rocky']
+  become: true
+
+- name: Ensure nano is installed
+  ansible.builtin.dnf:
+    name: nano
+    state: present
+  when: ansible_os_family in ['RedHat', 'Rocky']
+

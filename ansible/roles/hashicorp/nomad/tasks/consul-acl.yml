@@ -20,14 +20,14 @@
         - local: "{{ nomad_consul_client_policy_local_file }}"
           remote: "{{ nomad_consul_client_policy_remote_file }}"
 
-    - name: Consul - Retrieve Consul Secret ID from bootstrap output.
+    - name: ACL - Retrieve Secret ID from bootstrap output.
       ansible.builtin.shell: "awk '/SecretID/ {print $2}' {{ consul_bootstrap_token_local_path }}"
       changed_when: false
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
       register: consul_acl_bootstrap_output
 
-    - name: Consul - Set the Consul Secret ID as a fact.
+    - name: ACL - Set the Secret ID as a fact.
       ansible.builtin.set_fact:
         consul_acl_bootstrap_secret_id: "{{ consul_acl_bootstrap_output.stdout }}"
 
@@ -59,7 +59,7 @@
         dest: "{{ nomad_consul_server_token_local_path }}"
         mode: 0644
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
     - name: Consul - Create ACL token for Nomad Clients.
       ansible.builtin.command: "{{ consul_binary }} acl token create -description '{{ nomad_consul_client_token_description }}' -policy-name {{ nomad_consul_client_service_name }}"
@@ -75,7 +75,7 @@
         dest: "{{ nomad_consul_client_token_local_path }}"
         mode: 0644
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
     - name: Consul - Cleanup generated files which are not needed anymore.
       ansible.builtin.file:
@@ -103,7 +103,7 @@
       ansible.builtin.shell: "awk '/SecretID/ {print $2}' {{ nomad_consul_server_token_local_path }}"
       changed_when: false
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
       register: nomad_server_token_output
 
     - name: Consul - Set the Secret ID as a fact.
@@ -114,7 +114,7 @@
       ansible.builtin.shell: "awk '/SecretID/ {print $2}' {{ nomad_consul_client_token_local_path }}"
       changed_when: false
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
       register: nomad_client_token_output
 
     - name: Consul - Set the Secret ID as a fact.

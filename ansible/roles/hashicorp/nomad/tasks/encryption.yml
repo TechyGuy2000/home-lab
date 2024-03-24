@@ -13,9 +13,17 @@
       ansible.builtin.set_fact:
         active_vault_address: "https://active.vault.service.{{ consul_domain }}:8200"
 
-    - name: Set fact of admin password
+    - name: Read admin password from file on consul1
+      ansible.builtin.slurp:
+        src: "/home/gregbolton/bootstrap-tokens/vault_admin_password.txt"
+      register: slurped_admin_password
+      delegate_to: consul1
+      run_once: true
+
+    - name: Decode and set the admin password as a fact
       ansible.builtin.set_fact:
-        admin_password: "{{ lookup('file', vault_admin_local_path) }}"
+        admin_password: "{{ slurped_admin_password['content'] | b64decode }}"
+      run_once: true
 
     - name: Log in and retrieve client token
       ansible.builtin.uri:

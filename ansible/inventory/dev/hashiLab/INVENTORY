@@ -1,17 +1,16 @@
 [all]
-consul1  ansible_host=192.168.50.8
-consul2  ansible_host=192.168.50.9
-consul3  ansible_host=192.168.50.10
-vault1  ansible_host=192.168.50.11
-vault2  ansible_host=192.168.50.12
-vault3  ansible_host=192.168.50.13
-nomad1  ansible_host=192.168.50.14
-nomad2  ansible_host=192.168.50.15
-nomad3  ansible_host=192.168.50.16
-docker1  ansible_host=192.168.50.17
-docker2  ansible_host=192.168.50.18
-docker3  ansible_host=192.168.50.19
-desktop  ansible_host=192.168.50.49
+consul1
+consul2
+consul3
+vault1
+vault2
+vault3
+nomad1
+nomad2
+nomad3
+docker1
+docker2
+docker3
 
 [consul_servers]
 consul1
@@ -31,9 +30,9 @@ docker3
 
 
 [vault_servers]
-vault1
-vault2
-vault3
+vault1 vault_ssl_server_common_name=vault1.consul
+vault2 vault_ssl_server_common_name=vault2.consul
+vault3 vault_ssl_server_common_name=vault3.consul
 
 [vault_clients]
 nomad1
@@ -42,7 +41,8 @@ nomad3
 docker1
 docker2
 docker3
-desktop
+
+[management]
 
 [nomad_servers]
 nomad1
@@ -58,9 +58,6 @@ docker3
 docker1
 docker2
 docker3
-
-[management]
-desktop
 
 [hashicorp_stack:children]
 nomad_servers

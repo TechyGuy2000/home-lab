@@ -3,7 +3,7 @@
   ansible.builtin.shell: "awk '/SecretID/ {print $2}' {{ consul_bootstrap_token_local_path }}"
   changed_when: false
   become: false
-  delegate_to: localhost
+  delegate_to: "{{ groups['consul_servers'] | first }}"
   run_once: true
   register: consul_acl_bootstrap_output
   tags: backup
@@ -57,7 +57,7 @@
         dest: "{{ consul_snapshot_token_local_path }}"
         mode: 0644
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
   when:
     - not consul_acl_policy_read_snapshot.stdout == consul_snapshot_policy_name
@@ -66,7 +66,7 @@
   ansible.builtin.shell: "awk '/SecretID/ {print $2}' {{ consul_snapshot_token_local_path }}"
   changed_when: false
   become: false
-  delegate_to: localhost
+  delegate_to: "{{ groups['consul_servers'] | first }}"
   register: snapshot_token_output
   run_once: true
   tags: backup

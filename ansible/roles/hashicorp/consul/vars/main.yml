@@ -1,6 +1,6 @@
 ---
 bootstrap_location: "/home/{{ ansible_env.SUDO_USER }}/bootstrap-tokens"
-datacenter_name: "bolt"
+datacenter_name: "dc1"
 
 consul_domain: "consul"
 consul_binary: "/usr/bin/consul"

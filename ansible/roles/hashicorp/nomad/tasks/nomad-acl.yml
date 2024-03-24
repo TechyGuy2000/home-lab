@@ -22,13 +22,13 @@
         dest: "{{ nomad_bootstrap_token_local_path }}"
         mode: 0644
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
     - name: ACL - Retrieve Secret ID from bootstrap output.
       ansible.builtin.shell: "awk '/Secret ID/ {print $4}' {{ nomad_bootstrap_token_local_path }}"
       changed_when: false
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
       register: nomad_acl_bootstrap_output
 
     - name: ACL - Set the Secret ID as a fact.
@@ -48,7 +48,7 @@
         dest: "{{ nomad_ops_token_local_path }}"
         mode: 0644
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
     - name: ACL - Create Client token.
       ansible.builtin.command: "{{ nomad_binary }} acl token create -name='{{ nomad_client_token_name }}' -global -policy='{{ nomad_client_policy_name }}'"
@@ -63,7 +63,7 @@
         dest: "{{ nomad_client_token_local_path }}"
         mode: 0644
       become: false
-      delegate_to: localhost
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
     - name: ACL - Ensure client policy file is in place.
       ansible.builtin.copy:

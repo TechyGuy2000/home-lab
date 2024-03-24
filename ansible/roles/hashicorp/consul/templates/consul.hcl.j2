@@ -64,3 +64,10 @@ connect {
   enabled = true
 }
 {% endif %}
+
+# DNS forwarding configuration
+recursors = ["192.168.50.1"] # External DNS servers for forwarding
+dns_config {
+  allow_stale = true
+  max_stale = "5s"
+}

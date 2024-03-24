@@ -45,5 +45,20 @@ resource "proxmox_vm_qemu" "hashi_servers" {
   network {
     bridge  = "vmbr0"
     model   = "virtio"
+    macaddr = each.value.macaddr
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo -S hostnamectl set-hostname ${each.value.name}",
+    ]
+
+    connection {
+      type        = "ssh"
+      host        = each.value.ip_address
+      user        = var.ci_user
+      private_key = file(var.private_key_path)
+      agent       = false
+    }
   }
 }

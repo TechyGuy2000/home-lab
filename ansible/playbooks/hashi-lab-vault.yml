@@ -1,0 +1,33 @@
+---
+- name: Vault
+  hosts:
+    - vault_servers
+    - vault_clients
+  become: true
+
+  vars_files:
+    - ../roles/hashicorp/consul/vars/main.yml
+
+  # Uncomment these lines if you want to unseal with other shards than present in the vault.master.keys file.
+  # vars:
+  #   vault_unseal_key_1: "xxxxxxxxxxx"
+  #   vault_unseal_key_2: "yyyyyyyyyyy"
+  #   vault_unseal_key_3: "zzzzzzzzzzz"
+
+  roles:
+    - name: hashicorp/vault
+
+- name: Vault for desktop
+  hosts: desktop
+  connection: local
+  become: false
+
+  vars_files:
+    - ../roles/hashicorp/consul/vars/main.yml
+
+  tasks:
+    - name: Ensure Vault address
+      ansible.builtin.lineinfile:
+        path: "/home/gregbolton/.bashrc"
+        regexp: "VAULT_ADDR"
+        line: "export VAULT_ADDR=https://vault.service.{{ consul_domain }}:8200"

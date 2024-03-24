@@ -1,5 +1,6 @@
+
 ---
-- name: Check the Vault sealed status. # noqa: risky-shell-pipe
+- name: Check the Vault sealed status.
   ansible.builtin.shell: "{{ vault_binary }} status | grep -i sealed | awk '{print $2}'"
   environment:
     VAULT_ADDR: "{{ vault_address }}"
@@ -10,29 +11,28 @@
   tags: unseal
 
 - name: Unseal Prep
-  when:
-    - vault_is_sealed.stdout == "true"
+  when: vault_is_sealed.stdout == "true"
   tags: unseal
   block:
-    - name: Unseal - Retrieve local token file.
-      ansible.builtin.set_fact:
-        token_file_output: "{{ lookup('file', vault_bootstrap_init_local_path).split('\n') }}"
-      delegate_to: localhost
+    - name: Unseal - Retrieve local token file content.
+      ansible.builtin.shell: cat /home/gregbolton/bootstrap-tokens/vault.master.keys
+      register: token_file_output
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
     - name: Unseal - Retrieve first unseal key from initialization info.
       ansible.builtin.set_fact:
-        vault_unseal_key_1: "{{ token_file_output[0].split('Unseal Key 1: ')[1] }}"
-      delegate_to: localhost
+        vault_unseal_key_1: "{{ token_file_output.stdout_lines[0].split(' ')[-1] }}"
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
     - name: Unseal - Retrieve second unseal key from initialization info.
       ansible.builtin.set_fact:
-        vault_unseal_key_2: "{{ token_file_output[1].split('Unseal Key 2: ')[1] }}"
-      delegate_to: localhost
+        vault_unseal_key_2: "{{ token_file_output.stdout_lines[1].split(' ')[-1] }}"
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
     - name: Unseal - Retrieve third unseal key from initialization info.
       ansible.builtin.set_fact:
-        vault_unseal_key_3: "{{ token_file_output[2].split('Unseal Key 3: ')[1] }}"
-      delegate_to: localhost
+        vault_unseal_key_3: "{{ token_file_output.stdout_lines[2].split(' ')[-1] }}"
+      delegate_to: "{{ groups['consul_servers'] | first }}"
 
 - name: Unseal first node
   when:
@@ -52,12 +52,11 @@
         - "{{ vault_unseal_key_1 }}"
         - "{{ vault_unseal_key_2 }}"
         - "{{ vault_unseal_key_3 }}"
-      no_log: true
       changed_when: false
 
 - name: Pause for a couple of seconds
   ansible.builtin.pause:
-    seconds: 5
+    seconds: 30
   tags: unseal
 
 - name: Unseal all other nodes
@@ -76,5 +75,4 @@
         - "{{ vault_unseal_key_1 }}"
         - "{{ vault_unseal_key_2 }}"
         - "{{ vault_unseal_key_3 }}"
-      no_log: true
       changed_when: false

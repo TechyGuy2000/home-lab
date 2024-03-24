@@ -1,6 +1,6 @@
 ---
-bootstrap_location: "/Users/{{ ansible_env.SUDO_USER }}/bootstrap-tokens"
-datacenter_name: "velp"
+bootstrap_location: "/home/{{ ansible_env.SUDO_USER }}/bootstrap-tokens"
+datacenter_name: "bolt"
 
 vault_binary: "/usr/bin/vault"
 vault_etc_directory: "/etc/vault.d"
@@ -70,13 +70,14 @@ vault_consul_service_description: "Vault Service Token"
 
 vault_admin_policy_name: "pol-admin"
 vault_admin_group_name: "grp-admin"
-vault_admin_username: "atcomputing"
+vault_admin_username: "{{ ansible_env.VAULT_ADMIN_USER }}"
+#vault_admin_username: "atcomputing"
 vault_admin_local_path: "{{ bootstrap_location }}/{{ vault_admin_username }}.vault.password"
 
 vault_operator_policy_name: "pol-operator"
 
 vault_pki_int_path: "pki_int"
-vault_pki_int_common_name: "In The Picture Intermediate CA"
+vault_pki_int_common_name: "Bolt Intermediate CA"
 vault_pki_int_max_ttl: "43800h"
 vault_pki_int_ttl: "43800h"
 vault_pki_int_local_path: "{{ vault_ssl_base_path }}/intermediate"
@@ -84,14 +85,14 @@ vault_pki_int_csr_file: "{{ vault_pki_int_local_path }}/{{ vault_pki_int_path }}
 vault_pki_int_pem_file: "{{ vault_pki_int_local_path }}/{{ vault_pki_int_path }}.pem"
 vault_pki_int_url_issue: "https://{{ vault_ssl_server_common_name }}:8200/v1/{{ vault_pki_int_path }}/ca"
 vault_pki_int_url_crl: "http://{{ vault_ssl_server_common_name }}:8200/v1/{{ vault_pki_int_path }}/crl"
-vault_pki_int_role_name: "inthepicture-dot-photo"
-vault_pki_int_role_allowed_domains: "inthepicture.photo"
+vault_pki_int_role_name: "bolt-dot-photo"
+vault_pki_int_role_allowed_domains: "bolt.photo"
 vault_pki_int_role_allow_subdomains: "true"
 vault_pki_int_role_max_ttl: "72h"
 vault_pki_int_openssl_days: "1825"
 vault_pki_int_policy_file: "{{ vault_pki_int_local_path }}/intermediate-ca-policy.hcl"
 vault_pki_int_policy_name: "pol-pki-int"
-vault_pki_int_ca_share_filename: "InThePicture_Intermediate_CA_Chain.crt"
+vault_pki_int_ca_share_filename: "Bolt_Intermediate_CA_Chain.crt"
 vault_pki_int_nomad_role: "nomad-cluster"
 vault_pki_int_nomad_role_max_ttl: "8766h"
 
